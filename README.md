@@ -17,7 +17,7 @@ Il design dell’interfaccia utente è stato creato con Figma, mentre il brainst
 
 ## 🍵 Backend collegato
 
-Il backend realizzato con 
+Il backend realizzato con Java in Springboot.
 
 [![Backend Repo](https://img.shields.io/badge/Repo-Backend-violet?logo=github)](https://github.com/ilMatto99/outly-be.git)
 
