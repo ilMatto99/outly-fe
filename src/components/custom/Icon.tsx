@@ -1,11 +1,11 @@
-import type { ElementType, SVGProps } from 'react';
-import { FiSearch, FiPaperclip, FiCamera, FiSend, FiPlayCircle, FiUser, FiPlus, FiHome, FiMessageCircle, FiArrowLeft, FiMapPin, FiUsers, FiMoreHorizontal, FiEdit, FiShare2, FiRefreshCcw, FiClock, FiStar, FiChevronDown, FiCalendar } from 'react-icons/fi';
-import { FaWalking, FaRunning, FaFilter, FaRegBookmark, FaBookmark, FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
-import { BiCycling } from "react-icons/bi";
-import { MdOutlineNordicWalking, MdOutlineEuro } from "react-icons/md";
-import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
-import { LuCheck, LuCheckCheck } from 'react-icons/lu';
 import { cn } from '@/lib/utils';
+import type { ElementType, SVGProps } from 'react';
+import { BiCycling } from "react-icons/bi";
+import { FaBookmark, FaRegBookmark, FaRegEye, FaRegEyeSlash, FaRunning, FaWalking } from 'react-icons/fa';
+import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiStar, FiUser, FiUsers } from 'react-icons/fi';
+import { LuCheck, LuCheckCheck, LuFilter } from 'react-icons/lu';
+import { MdOutlineEuro, MdOutlineNordicWalking } from "react-icons/md";
+import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
 
 const IconMap: { [key: string]: ElementType } = {
     // Icione presenti nel tuo Figma e corrispondenza (esempi):
@@ -20,7 +20,7 @@ const IconMap: { [key: string]: ElementType } = {
     'running': FaRunning,
     'climbing': MdOutlineNordicWalking,
     'search': FiSearch,
-    'filter': FaFilter,
+    'filter': LuFilter,
     'arrow-left': FiArrowLeft,
     'map-pin': FiMapPin,
     'users': FiUsers,
