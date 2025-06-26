@@ -2,13 +2,12 @@ import { cn } from '@/lib/utils';
 import type { ElementType, SVGProps } from 'react';
 import { BiCycling } from "react-icons/bi";
 import { FaBookmark, FaRegBookmark, FaRegEye, FaRegEyeSlash, FaRunning, FaWalking } from 'react-icons/fa';
-import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiStar, FiUser, FiUsers } from 'react-icons/fi';
+import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiStar, FiUser, FiUsers, FiX } from 'react-icons/fi';
 import { LuCheck, LuCheckCheck, LuFilter } from 'react-icons/lu';
 import { MdOutlineEuro, MdOutlineNordicWalking } from "react-icons/md";
 import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
 
 const IconMap: { [key: string]: ElementType } = {
-    // Icione presenti nel tuo Figma e corrispondenza (esempi):
     'bookmark-empty': FaRegBookmark,
     'bookmark-full': FaBookmark,
     'user': FiUser,
@@ -42,7 +41,8 @@ const IconMap: { [key: string]: ElementType } = {
     'check': LuCheck,
     'double-check': LuCheckCheck,
     'eye': FaRegEye,
-    'barred-eye': FaRegEyeSlash
+    'barred-eye': FaRegEyeSlash,
+    'close': FiX
 };
 
 interface IconProps extends SVGProps<SVGSVGElement> {

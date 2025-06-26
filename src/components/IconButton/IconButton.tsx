@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import Icon from "./Icon";
+import Icon from "../Icon/Icon";
 import '../../index.css'
 
 interface IconButtonProps extends React.ComponentProps<"button"> {

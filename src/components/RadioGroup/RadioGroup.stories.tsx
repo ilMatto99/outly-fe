@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group"; // Importa i tuoi componenti Shadcn/Radix modificati
+import { RadioGroup, RadioGroupItem } from "./radio-group"; // Importa i tuoi componenti Shadcn/Radix modificati
 import { useState } from "react"; 
 
 const meta: Meta<typeof RadioGroup> = { 

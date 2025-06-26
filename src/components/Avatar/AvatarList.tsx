@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Avatar } from "../ui/avatar"; 
+import { Avatar } from "./avatar"; 
 import { cn } from "@/lib/utils";
+import "../../index.css"
 
 interface UserData {
   id: string;
