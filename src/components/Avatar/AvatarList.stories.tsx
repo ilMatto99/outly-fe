@@ -1,7 +1,5 @@
-// src/components/ui/avatar-list.stories.tsx
-
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { AvatarList } from '../components/custom/AvatarList'; // Importa AvatarList
+import { AvatarList } from './AvatarList';
 
 const sampleUsers = [
   { id: '1', name: 'Alice', image: 'https://github.com/shadcn.png' },
@@ -101,7 +99,7 @@ export const CustomSizeList: Story = {
     users: sampleUsers,
     maxDisplay: 3,
     avatarSize: 'custom',
-    customSizeClass: 'size-14', // Esempio di dimensione personalizzata 56px
+    customSizeClass: 'size-14', 
   },
 };
 
