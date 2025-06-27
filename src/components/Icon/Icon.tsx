@@ -34,7 +34,7 @@ const IconMap: { [key: string]: ElementType } = {
     'arrow-down': FiChevronDown,
     'play': FiPlayCircle,
     'calendar': FiCalendar,
-    'check-circle': RiVerifiedBadgeLine,
+    'badge': RiVerifiedBadgeLine,
     'paperclip': FiPaperclip,
     'camera': FiCamera,
     'send': FiSend,
