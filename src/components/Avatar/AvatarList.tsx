@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar } from "./avatar"; 
+import Avatar from "./avatar"; 
 import { cn } from "@/lib/utils";
 import "../../index.css"
 
@@ -59,4 +59,4 @@ const AvatarList = ({
   );
 };
 
-export { AvatarList };
+export default AvatarList;

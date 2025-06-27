@@ -109,4 +109,4 @@ function AvatarFallback({
   )
 }
 
-export { Avatar }
+export default Avatar

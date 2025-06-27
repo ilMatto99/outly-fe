@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { AvatarList } from './AvatarList';
+import AvatarList from './AvatarList';
 
 const sampleUsers = [
   { id: '1', name: 'Alice', image: 'https://github.com/shadcn.png' },
