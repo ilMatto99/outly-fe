@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import type { ElementType, SVGProps } from 'react';
 import { BiCycling } from "react-icons/bi";
 import { FaBookmark, FaRegBookmark, FaRegEye, FaRegEyeSlash, FaRunning, FaWalking } from 'react-icons/fa';
-import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiStar, FiUser, FiUsers, FiX } from 'react-icons/fi';
+import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiMoreVertical, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiStar, FiUser, FiUsers, FiX } from 'react-icons/fi';
 import { LuCheck, LuCheckCheck, LuFilter } from 'react-icons/lu';
 import { MdOutlineEuro, MdOutlineNordicWalking } from "react-icons/md";
 import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
@@ -42,7 +42,8 @@ const IconMap: { [key: string]: ElementType } = {
     'double-check': LuCheckCheck,
     'eye': FaRegEye,
     'barred-eye': FaRegEyeSlash,
-    'close': FiX
+    'close': FiX,
+    'more-vertical': FiMoreVertical
 };
 
 interface IconProps extends SVGProps<SVGSVGElement> {
