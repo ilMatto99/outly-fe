@@ -23,7 +23,7 @@ const buttonVariants = cva(
           "bg-transparent text-[#203D41] border-2 border-[#203D41] hover:bg-[#203D41]",
         secondary:
           "bg-[#DFE3D0] text-black shadow-xs hover:bg-[#9EA193]",
-        link: "text-[#203D41] underline-offset-4 hover:underline bg-transparent border-none",
+        link: "text-[#203D41] underline-offset-4 hover:underline bg-transparent border-none italic",
       },
       size: {
         small: "text-[12px] py-[10px] px-[16px]",
@@ -66,4 +66,4 @@ function Button({
   )
 }
 
-export { Button, buttonVariants };
+export default Button;

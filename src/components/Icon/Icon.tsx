@@ -1,8 +1,10 @@
 import { cn } from '@/lib/utils';
 import type { ElementType, SVGProps } from 'react';
 import { BiCycling } from "react-icons/bi";
-import { FaBookmark, FaRegBookmark, FaRegEye, FaRegEyeSlash, FaRunning, FaWalking } from 'react-icons/fa';
-import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiMoreVertical, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiStar, FiUser, FiUsers, FiX } from 'react-icons/fi';
+import { FaApple, FaBookmark, FaFacebook, FaRegBookmark, FaRegHandshake, FaRunning, FaWalking } from 'react-icons/fa';
+import { FcGoogle } from "react-icons/fc";
+import { FiArrowLeft, FiCalendar, FiCamera, FiChevronDown, FiClock, FiCompass, FiEdit, FiHome, FiMapPin, FiMessageCircle, FiMoreHorizontal, FiMoreVertical, FiPaperclip, FiPlayCircle, FiPlus, FiRefreshCcw, FiSearch, FiSend, FiShare2, FiSmartphone, FiStar, FiUser, FiUsers, FiX } from 'react-icons/fi';
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { LuCheck, LuCheckCheck, LuFilter } from 'react-icons/lu';
 import { MdOutlineEuro, MdOutlineNordicWalking } from "react-icons/md";
 import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
@@ -40,10 +42,16 @@ const IconMap: { [key: string]: ElementType } = {
     'send': FiSend,
     'check': LuCheck,
     'double-check': LuCheckCheck,
-    'eye': FaRegEye,
-    'barred-eye': FaRegEyeSlash,
+    'eye': IoEyeOutline,
+    'eye-slash': IoEyeOffOutline,
     'close': FiX,
-    'more-vertical': FiMoreVertical
+    'more-vertical': FiMoreVertical,
+    "handshake": FaRegHandshake,
+    "compass": FiCompass,
+    "smartphone": FiSmartphone,
+    "google": FcGoogle,
+    "apple": FaApple,
+    "facebook": FaFacebook
 };
 
 interface IconProps extends SVGProps<SVGSVGElement> {
