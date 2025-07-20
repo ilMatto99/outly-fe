@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Button from "../components/Button/button";
 import Icon from "@/components/Icon/Icon";
 
@@ -20,12 +21,16 @@ export default function Onboarding() {
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4 text-center">
                     <h1 className="text-4xl font-semibold leading-tight mb-6 ">Trova compagni per<br />la tua prossima avventura.</h1>
                     <div className="flex flex-col gap-4 w-full max-w-sm">
-                        <Button label="Accedi" variant={"primary"} onClick={handleClick} />
-                        <Button label="Registrati" variant={"secondary"} onClick={handleClick} />
+                        <Link to={"/login"}>
+                            <Button label="Accedi" variant={"primary"} onClick={handleClick} />
+                        </Link>
+                        <Link to={"/signup"}>
+                            <Button label="Registrati" variant={"secondary"} onClick={handleClick} />
+                        </Link>
                     </div>
                 </div>
             </section>
-            
+
             {/* Intro + Categorie */}
             <section className="px-4 py-6 bg-white text-center">
                 <h2 className="text-lg font-bold mb-2">Non sei mai solo. Esplora, condividi, vivi!</h2>
@@ -70,7 +75,9 @@ export default function Onboarding() {
                         </li>
                     </ul>
                     <div className="mt-8 w-90">
-                        <Button label="Inizia ora ad esplorare" variant="secondary" onClick={handleClick} className="w-full" />
+                        <Link to={"/signup"}>
+                            <Button label="Inizia ora ad esplorare" variant="secondary" onClick={handleClick} className="w-full" />
+                        </Link>
                     </div>
                 </div>
             </section>

@@ -2,7 +2,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useState, type ChangeEvent } from "react"
 import type { DateRange } from "react-day-picker"
-import { Button } from "../Button/button"
+import Button from "../Button/button"
 import Input from "../Input/input"
 import "../../index.css"
 

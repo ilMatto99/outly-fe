@@ -55,9 +55,6 @@ export const PasswordHidden: Story = {
         label: 'Password', 
         type: 'password', 
         placeholder: 'Inserisci la tua password',
-        trailingIcons: [
-            {iconName: 'eye', label: 'Occhio aperto'}
-        ]
     },
 };
 
@@ -66,9 +63,6 @@ export const PasswordShown: Story = {
         label: 'Password', 
         type: 'password', 
         placeholder: 'Inserisci la tua password',
-        trailingIcons: [
-            {iconName: 'barred-eye', label: 'Occhio chiuso'}
-        ]
     },
 };
 
