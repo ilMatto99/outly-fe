@@ -10,7 +10,7 @@ export const getCompletaRegistrazione = async (user: UtenteDTO) => {
     });
     
     if (!response.ok) {
-        throw new Error("Registrazione fallita");
+        throw new Error("Errore nella fetch a /api/utente/completaUtente");
     }
     
     const data = response.json();

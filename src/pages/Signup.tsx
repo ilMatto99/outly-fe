@@ -1,20 +1,28 @@
-import Input from "@/components/Input/input"
-import logo from "/images/logo-outly.jpg"
-import Button from "@/components/Button/button"
-import IconButton from "@/components/IconButton/IconButton"
-import { useState, type FormEvent } from "react"
-import { validateEmail } from "@/components/Input/useInput"
-import { Link, useNavigate } from "react-router"
+import Input from "@/components/Input/input";
+import logo from "/images/logo-outly.jpg";
+import Button from "@/components/Button/button";
+import IconButton from "@/components/IconButton/IconButton";
+import { useState, type FormEvent } from "react";
+import { validateEmail } from "@/components/Input/useInput";
+import { Link, useLocation, useNavigate } from "react-router";
 
 export const Signup = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    // Legge i valori eventualmente passati da useAutenticazione
+    const initialEmail = location.state?.email ?? "";
+    const initialPassword = location.state?.passwordHash ?? "";
+    const utenteNonTrovato = location.state?.utenteNonTrovato ?? false;
+
+    // Stati del form
+    const [email, setEmail] = useState(initialEmail);
+    const [password, setPassword] = useState(initialPassword);
+    const [confirmPassword, setConfirmPassword] = useState(initialPassword);
 
     const isEmailValid = validateEmail(email);
     const isPasswordMatch = password === confirmPassword;
+
     const isFormValid =
         email.trim() !== "" &&
         isEmailValid &&
@@ -23,23 +31,18 @@ export const Signup = () => {
 
     const handleSignup = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        console.log("Registrazione:");
-        console.log("Email: ", email);
-        console.log("Password: ", password);
-    }
+    };
 
     const handleCompleteSignup = () => {
-        
         if (isFormValid) {
             navigate("/complete-signup", {
                 state: {
                     email,
                     passwordHash: password
                 }
-            })
+            });
         }
-    }
+    };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-gray-800 p-4">
@@ -54,23 +57,32 @@ export const Signup = () => {
                         label="Email"
                         type="email"
                         onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                         required
                     />
                     <Input
                         label="Password"
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
+                        value={password}
                         required
                     />
                     <Input
                         label="Conferma Password"
                         type="password"
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        value={confirmPassword}
                         required
                     />
+
+                    {utenteNonTrovato && (
+                        <p className="text-red-500 text-sm text-center mt-2">
+                            Nessun utente trovato con questa email. Crea un nuovo account.
+                        </p>
+                    )}
+
                     <Button label="Registrati" onClick={handleCompleteSignup} className="w-full mt-5" disabled={!isFormValid} />
                 </form>
-
 
                 <div className="w-full max-w-sm flex flex-col items-center mt-4">
                     <div className="relative w-full flex items-center justify-center mb-3">
@@ -88,5 +100,5 @@ export const Signup = () => {
                 </Link>
             </div>
         </div>
-    )
-}
+    );
+};

@@ -4,18 +4,22 @@ import Button from "@/components/Button/button"
 import IconButton from "@/components/IconButton/IconButton"
 import { useState, type FormEvent } from "react"
 import { Link } from "react-router"
+import { useAutenticazione } from "@/hooks/useAutenticazione"
 
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showError, setShowError] = useState(true);
 
     const isFormValid = email.trim() !== "" && password.trim() !== "";
 
+    const { autenticazione, error } = useAutenticazione(() => setShowError(false));
+
     const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Login attempt:");
-        console.log("Email: ", email);
-        console.log("Password: ", password);
+        setShowError(true);
+        
+        autenticazione({ email, password })
     }
 
     return (
@@ -40,6 +44,9 @@ export const Login = () => {
                         value={password}
                         required
                     />
+
+                    {error && showError && <p className="text-red-500 text-sm">{error}</p>}
+
                     <Button label="Accedi" type="submit" className="w-full mt-5" onClick={() => console.log("Form inviata")} disabled={!isFormValid} />
                 </form>
 

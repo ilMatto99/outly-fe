@@ -64,9 +64,9 @@ export const CompleteSignup = () => {
                 <img
                     src={logo}
                     alt="Logo Outly"
-                    className="w-24 h-auto mx-auto mb-2"
+                    className="w-16 h-auto mx-auto mb-2"
                 />
-                <h1 className="text-2xl font-bold text-gray-800">
+                <h1 className="text-3xl font-bold text-gray-800">
                     Completa la registrazione
                 </h1>
                 <p className="text-sm text-gray-500 mt-3">
