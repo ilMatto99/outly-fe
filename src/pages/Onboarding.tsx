@@ -22,10 +22,10 @@ export default function Onboarding() {
                     <h1 className="text-4xl font-semibold leading-tight mb-6 ">Trova compagni per<br />la tua prossima avventura.</h1>
                     <div className="flex flex-col gap-4 w-full max-w-sm">
                         <Link to={"/login"}>
-                            <Button label="Accedi" variant={"primary"} onClick={handleClick} />
+                            <Button label="Accedi" variant={"primary"} onClick={handleClick} className="w-80"/>
                         </Link>
                         <Link to={"/signup"}>
-                            <Button label="Registrati" variant={"secondary"} onClick={handleClick} />
+                            <Button label="Registrati" variant={"secondary"} onClick={handleClick} className="w-80"/>
                         </Link>
                     </div>
                 </div>
