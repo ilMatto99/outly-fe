@@ -1,20 +1,21 @@
 import Input from "@/components/Input/input"
-import logo from "/images/logo-outly-2.jpg"
+import logo from "/images/logo-outly.jpg"
 import Button from "@/components/Button/button"
 import IconButton from "@/components/IconButton/IconButton"
 import { useState, type FormEvent } from "react"
 import { validateEmail } from "@/components/Input/useInput"
+import { Link, useNavigate } from "react-router"
 
 export const Signup = () => {
-    const [username, setUsername] = useState("");
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const isEmailValid = validateEmail(email);
-    const isPasswordMatch = password === confirmPassword ;
+    const isPasswordMatch = password === confirmPassword;
     const isFormValid =
-        username.trim() !== "" &&
         email.trim() !== "" &&
         isEmailValid &&
         password.trim() !== "" &&
@@ -24,9 +25,20 @@ export const Signup = () => {
         e.preventDefault();
 
         console.log("Registrazione:");
-        console.log("Username: ", username);
         console.log("Email: ", email);
         console.log("Password: ", password);
+    }
+
+    const handleCompleteSignup = () => {
+        
+        if (isFormValid) {
+            navigate("/complete-signup", {
+                state: {
+                    email,
+                    passwordHash: password
+                }
+            })
+        }
     }
 
     return (
@@ -38,11 +50,6 @@ export const Signup = () => {
                 <h1 className="text-3xl font-bold mb-4"><b>Registrati</b></h1>
 
                 <form onSubmit={handleSignup} className="w-80 mt-3 mb-6 space-y-4">
-                    <Input
-                        label="Nome utente"
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
                     <Input
                         label="Email"
                         type="email"
@@ -61,7 +68,7 @@ export const Signup = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
                     />
-                    <Button label="Registrati" onClick={() => console.log("Form inviata")} className="w-full mt-5" disabled={!isFormValid}/>
+                    <Button label="Registrati" onClick={handleCompleteSignup} className="w-full mt-5" disabled={!isFormValid} />
                 </form>
 
 
@@ -71,16 +78,15 @@ export const Signup = () => {
                         <span className="absolute bg-white px-3 text-gray-500 text-sm">oppure</span>
                     </div>
                     <div className="flex justify-center mt-3 space-x-8 w-full">
-                        <IconButton label="" iconName="google" size={"large"} />
-                        <IconButton label="" iconName="facebook" size={"large"} />
-                        <IconButton label="" iconName="apple" size={"large"} />
+                        <IconButton label="" iconName="google" size={"large"} onClick={() => console.log("Autenticazione con Google")} />
                     </div>
                 </div>
             </div>
             <div className="flex flex-col items-center mt-0 space-y-3">
-                <Button variant={"link"} label="Hai già un account?" onClick={() => console.log("vai a login")} />
+                <Link to={"/login"}>
+                    <Button variant={"link"} label="Hai già un account?" onClick={() => console.log("vai a login")} />
+                </Link>
             </div>
-
         </div>
     )
 }
