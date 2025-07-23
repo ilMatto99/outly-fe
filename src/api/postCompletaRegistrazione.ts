@@ -1,7 +1,7 @@
 import type { UtenteDTO } from "@/types/UtenteDTO";
 
 export const getCompletaRegistrazione = async (user: UtenteDTO) => {
-    const response = await fetch("/api/utente/completaUtente", {
+    const response = await fetch("http://localhot:8080/api/utente/completaUtente", {
         "method": "POST",
         headers: {
             "Content-Type": "application/json",

@@ -1,4 +1,4 @@
-import { getAutenticazione } from "@/api/getAutenticazione";
+import { getAutenticazione } from "@/api/postAutenticazione";
 import type { AutenticazioneDTO } from "@/types/AutenticazioneDTO";
 import type { UtenteDTO } from "@/types/UtenteDTO";
 import { useState } from "react"

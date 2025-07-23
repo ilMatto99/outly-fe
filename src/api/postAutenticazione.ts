@@ -1,7 +1,7 @@
 import type { AutenticazioneDTO } from "@/types/AutenticazioneDTO"
 
 export const getAutenticazione = async (login: AutenticazioneDTO) => {
-    const response = await fetch("/api/utente/autenticazione", {
+    const response = await fetch("http://localhot:8080/api/utente/autenticazione", {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

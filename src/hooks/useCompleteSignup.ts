@@ -1,6 +1,8 @@
 import type { UtenteDTO } from "@/types/UtenteDTO";
 import { useState } from "react";
 
+//DA RIVEDERE COMPLETAMENTE
+
 export const useCompleteSignup = (initialEmail: string, initialPassword: string) => {
     const [formData, setFormData] = useState<UtenteDTO>({
     nome: "",

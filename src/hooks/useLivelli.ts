@@ -1,4 +1,4 @@
-import { getLivelli } from "@/api/getLivelli";
+import { getLivelli } from "@/api/postLivelli";
 import { useEffect, useState } from "react"
 
 export const useLivelli = () => {
