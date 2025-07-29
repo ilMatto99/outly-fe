@@ -5,7 +5,13 @@ import IconButton from "@/components/IconButton/IconButton"
 import { useState, type FormEvent } from "react"
 import { Link } from "react-router"
 import { useAutenticazione } from "@/hooks/useAutenticazione"
+import { startGoogleLogin } from "@/api/startGoogleLogin"
 
+/**
+ * Componente di pagina per il login dell'utente.
+ * Permette agli utenti di accedere con email e password, o tramite Google.
+ * Gestisce l'autenticazione e la navigazione in caso di successo o errore.
+ */
 export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,6 +21,11 @@ export const Login = () => {
 
     const { autenticazione, error } = useAutenticazione(() => setShowError(false));
 
+    /**
+     * Gestisce l'invio del form di login.
+     * Previene il comportamento predefinito del form e chiama la funzione `autenticazione`.
+     * @param e L'evento del form.
+     */
     const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setShowError(true);
@@ -57,7 +68,7 @@ export const Login = () => {
                         <span className="absolute bg-white px-3 text-gray-500 text-sm">oppure</span>
                     </div>
                     <div className="flex justify-center mt-5 space-x-8 w-full">
-                        <IconButton label="Google" iconName="google" size={"large"} onClick={() => console.log("Autenticazione con Google")} />
+                        <IconButton label="Google" iconName="google" size={"large"} onClick={startGoogleLogin} />
                     </div>
                 </div>
             </div>
