@@ -1,7 +1,20 @@
 import type { AutenticazioneDTO } from "@/types/AutenticazioneDTO"
+import { BASE_URL_UTENTE } from "./config";
 
-export const getAutenticazione = async (login: AutenticazioneDTO) => {
-    const response = await fetch("http://localhot:8080/api/utente/autenticazione", {
+/**
+ * Effettua l'autenticazione di un utente.
+ *
+ * - Invia i dati di login (email e password) al backend tramite una richiesta POST.
+ * - Imposta l'header 'Content-Type' a 'application/json'.
+ * - Lancia un errore se la risposta non è ok.
+ *
+ * @param login DTO contenente le credenziali di autenticazione.
+ * @returns Una Promise che risolve con i dati di risposta dell'autenticazione.
+ * @throws Error se la fetch non va a buon fine.
+ */
+
+export const postAutenticazione = async (login: AutenticazioneDTO) => {
+    const response = await fetch(`${BASE_URL_UTENTE}autenticazione`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",

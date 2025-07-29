@@ -1,61 +1,87 @@
-//import { getCompletaRegistrazione } from "@/api/getCompletaRegistrazione";
 import Button from "@/components/Button/button";
 import Input from "@/components/Input/input";
 import { useCompleteSignup } from "@/hooks/useCompleteSignup";
-//import { useLivelli } from "@/hooks/useLivelli";
+import { useLivelli } from "@/hooks/useLivelli";
 import type { LivelloDTO } from "@/types/LivelloDTO";
-import type { ChangeEvent, FormEvent } from "react";
-import { useLocation, /*useNavigate*/ } from "react-router";
-import logo from "/images/logo-outly.jpg"
+import type { LocationState } from "@/types/UtenteParzialeDTO";
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useLocation, useNavigate } from "react-router";
+import logo from "/images/logo-outly.jpg";
+import { validateEmail } from "@/components/Input/useInput";
+
+/**
+ * Componente di pagina per il completamento della registrazione dell'utente.
+ * Permette agli utenti di inserire i dati del profilo come nome, cognome, email,
+ * password, bio, città, URL dell'avatar e livello.
+ * I campi possono essere precompilati se l'utente proviene da un'autenticazione esterna (es. Google).
+ */
 
 export const CompleteSignup = () => {
     const location = useLocation();
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
+    const state = (location.state || {}) as LocationState; 
 
-    const email = location.state?.email ?? "";
-    const password = location.state?.passwordHash ?? "";
+    const [nome, setNome] = useState(state.nome || "");
+    const [cognome, setCognome] = useState(state.cognome || "");
+    const [email, setEmail] = useState(state.email || "");
+    const [password, setPassword] = useState(state.passwordHash || "");
+    const [bio, setBio] = useState("");
+    const [citta, setCitta] = useState("");
+    const [avatarUrl, setAvatarUrl] = useState(state.avatarUrl || "");
+    const [livello, setLivello] = useState<number | null>(null);
 
-    {/* TODO: elimina mock e sostituisci con chiamata al backend per recuperare livelli */}
-    const livelliMock: LivelloDTO[] = [
-        { id: 1, nome: "base" },
-        { id: 2, nome: "professionista" },
-    ];
+    const { handleRegistrazione, loading, error } = useCompleteSignup();
+    const { livelli } = useLivelli();
 
-    //const { livelli } = useLivelli();
-    const { formData, handleChange } = useCompleteSignup(email, password);
+    const isAvatarProvided = avatarUrl.trim() !== "";
 
-    const isFormValid = (): boolean => {
-        return (
-            formData.nome.trim() !== "" &&
-            formData.cognome.trim() !== "" &&
-            formData.email.trim() !== "" &&
-            formData.passwordHash.trim() !== "" &&
-            formData.bio.trim() !== "" &&
-            formData.citta.trim() !== "" &&
-            formData.livello !== undefined &&
-            formData.livello !== null &&
-            formData.livello !== 0
-        );
+    // Se proviene da Google, la password sarà un campo da riempire obbligatoriamente
+    // prima di completare la registrazione.
+    const isPasswordSet = password.trim() !== "";
+
+    const isFormValid =
+        nome.trim() !== "" &&
+        cognome.trim() !== "" &&
+        validateEmail(email) &&
+        isPasswordSet && 
+        bio.trim() !== "" &&
+        citta.trim() !== "" &&
+        isAvatarProvided &&
+        livello !== null;
+
+    const handleAvatarUrlChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setAvatarUrl(e.target.value);
     };
 
-    const handleAvatarUpload = (e: ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
+    /**
+     * Gestisce l'invio del form di registrazione.
+     * Previene il comportamento predefinito del form, crea un DTO dell'utente
+     * e chiama la funzione `handleRegistrazione` per inviare i dati al backend.
+     * In caso di successo, naviga alla home page.
+     * @param e L'evento del form.
+     */
+    
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
 
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const base64 = reader.result as string;
-            handleChange("avatarUrl", base64)
+        const utenteDTO = {
+            nome,
+            cognome,
+            email,
+            passwordHash: password,
+            bio,
+            citta,
+            avatarUrl: avatarUrl,
+            livello: livello as number
         };
 
-        reader.readAsDataURL(file);
-    }
-
-    const handleSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        console.log("Chiamata al backend")
-        /* await getCompletaRegistrazione(formData);
-        navigate("/home"); */
+        try {
+            await handleRegistrazione(utenteDTO);
+            console.log(utenteDTO);
+            navigate("/home");
+        } catch (error) {
+            console.error("Errore nella registrazione completa:", error);
+        }
     };
 
     return (
@@ -74,51 +100,58 @@ export const CompleteSignup = () => {
                 </p>
             </div>
             <form onSubmit={handleSubmit} className="p-4 space-y-4">
-                <Input
-                    label="Nome"
-                    onChange={(e) => handleChange("nome", e.target.value)}
-                    required
+                <Input 
+                    label="Nome" 
+                    value={nome} 
+                    onChange={(e) => setNome(e.target.value)} 
+                    required 
+                    readOnly={!!state.nome} 
                 />
-                <Input
-                    label="Cognome"
-                    onChange={(e) => handleChange("cognome", e.target.value)}
-                    required
+                <Input 
+                    label="Cognome" 
+                    value={cognome} 
+                    onChange={(e) => setCognome(e.target.value)} 
+                    required 
+                    readOnly={!!state.cognome}
                 />
-                <Input
-                    label="Email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    required
+                <Input 
+                    label="Email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required 
+                    readOnly={!!state.email}
                 />
-                <Input
-                    label="Password"
-                    type="password"
-                    value={formData.passwordHash}
-                    onChange={(e) => handleChange("passwordHash", e.target.value)}
-                    required
+                <Input 
+                    label="Password" 
+                    type="password" 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    required 
+                    placeholder="Imposta una password"
                 />
-                <Input
-                    label="Bio"
-                    type="textarea"
-                    onChange={(e) => handleChange("bio", e.target.value)}
-                    required
+                <Input 
+                    label="Bio" 
+                    value={bio} 
+                    onChange={(e) => setBio(e.target.value)} 
+                    required 
                 />
-                <Input
-                    label="Città"
-                    onChange={(e) => handleChange("citta", e.target.value)}
-                    required
+                <Input 
+                    label="Città" 
+                    value={citta} 
+                    onChange={(e) => setCitta(e.target.value)} 
+                    required 
                 />
 
                 <div className="flex flex-col gap-2">
-                    <label>Livello</label>
+                    <label className="text-sm font-medium">Livello</label>
                     <select
                         className="border rounded px-2 py-1"
-                        onChange={(e) => handleChange("livello", Number(e.target.value))}
+                        value={livello ?? ""}
+                        onChange={(e) => setLivello(Number(e.target.value))}
                         required
                     >
                         <option value="">Seleziona un livello</option>
-                        {livelliMock.map((livello: LivelloDTO) => (
+                        {livelli.map((livello: LivelloDTO) => (
                             <option key={livello.id} value={livello.id}>
                                 {livello.nome}
                             </option>
@@ -128,35 +161,34 @@ export const CompleteSignup = () => {
 
                 <div className="flex flex-col gap-2">
                     <label className="text-sm font-medium">Carica avatar</label>
-                    <label
-                        htmlFor="avatarUpload"
-                        className="cursor-pointer border border-dashed border-gray-400 rounded-md p-4 text-center text-sm text-gray-600 hover:bg-gray-100"
-                    >
-                        Clicca per scegliere un'immagine
-                        <input
-                            id="avatarUpload"
-                            type="file"
-                            accept="image/*"
-                            onChange={handleAvatarUpload}
-                            className="hidden"
-                        />
-                    </label>
-                    {formData.avatarUrl && (
+                    <Input
+                        label=""
+                        value={avatarUrl}
+                        onChange={handleAvatarUrlChange}
+                        placeholder="Es. https://example.com/avatar.jpg"
+                    />
+
+                    {/* Mostra l'anteprima se presente un URL */}
+                    {isAvatarProvided && (
                         <img
-                            src={formData.avatarUrl}
+                            src={avatarUrl}
                             alt="Anteprima avatar"
                             className="w-20 h-20 rounded-full object-cover mt-2 self-center"
                         />
                     )}
                 </div>
 
+                {error && <p className="text-red-500">{error}</p>}
+                {loading && <p >Registrazione in corso...</p>}
+
                 <Button
-                    label="Completa Registrazione"
+                    label="Completa registrazione"
+                    type="submit"
                     onClick={() => console.log("Registrazione completa")}
                     disabled={!isFormValid}
                     className="w-full mt-3"
                 />
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }

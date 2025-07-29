@@ -2,6 +2,11 @@ import { Link } from "react-router";
 import Button from "../components/Button/button";
 import Icon from "@/components/Icon/Icon";
 
+/**
+ * Componente di pagina per l'onboarding degli utenti.
+ * Introduce l'applicazione Outly, evidenziando i suoi vantaggi e
+ * fornendo link per il login e la registrazione.
+ */
 export default function Onboarding() {
 
     const handleClick = () => {

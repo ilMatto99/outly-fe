@@ -5,6 +5,13 @@ import IconButton from "@/components/IconButton/IconButton";
 import { useState, type FormEvent } from "react";
 import { validateEmail } from "@/components/Input/useInput";
 import { Link, useLocation, useNavigate } from "react-router";
+import { startGoogleLogin } from "@/api/startGoogleLogin";
+
+/**
+ * Componente di pagina per la registrazione di un nuovo utente.
+ * Permette agli utenti di creare un account con email e password, o tramite Google.
+ * Reindirizza alla pagina di completamento registrazione dopo l'input iniziale.
+ */
 
 export const Signup = () => {
     const navigate = useNavigate();
@@ -29,10 +36,19 @@ export const Signup = () => {
         password.trim() !== "" &&
         isPasswordMatch;
 
+    /**
+     * Gestisce l'invio del form di registrazione.
+     * Previene il comportamento predefinito del form.
+     * @param e L'evento del form.
+     */
     const handleSignup = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
+    /**
+     * Reindirizza l'utente alla pagina di completamento registrazione se il form è valido.
+     * Passa l'email e la password inserite come stato alla nuova pagina.
+     */
     const handleCompleteSignup = () => {
         if (isFormValid) {
             navigate("/complete-signup", {
@@ -90,7 +106,7 @@ export const Signup = () => {
                         <span className="absolute bg-white px-3 text-gray-500 text-sm">oppure</span>
                     </div>
                     <div className="flex justify-center mt-3 space-x-8 w-full">
-                        <IconButton label="" iconName="google" size={"large"} onClick={() => console.log("Autenticazione con Google")} />
+                        <IconButton label="" iconName="google" size={"large"} onClick={startGoogleLogin} />
                     </div>
                 </div>
             </div>
