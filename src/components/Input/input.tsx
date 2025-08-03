@@ -6,22 +6,24 @@ import IconButton from "../IconButton/IconButton"
 import type { InputProps, TextAreaInputProps, TrailingIconItemProps } from "./InputType";
 import { usePasswordToggle, validateEmail } from "./useInput"
 
-function Input({ 
-  label, 
-  type = 'text', 
-  placeholder, 
-  onChange, 
-  disabled = false, 
-  required = false, 
-  readOnly = false, 
-  error = false, 
-  errorMessage, 
-  value, 
-  leadingIcon, 
-  trailingIcons = [], 
-  onLeadingIconClick, 
-  className, 
-  ...props 
+function Input({
+  label,
+  type = 'text',
+  placeholder,
+  onChange,
+  onClick,
+  disabled = false,
+  required = false,
+  readOnly = false,
+  error = false,
+  errorMessage,
+  value,
+  leadingIcon,
+  trailingIcons = [],
+  onLeadingIconClick,
+  onKeyDown,
+  className,
+  ...props
 }: InputProps) {
   const inputId = React.useId();
   const [localError, setLocalError] = React.useState<string | null>(null);
@@ -31,7 +33,7 @@ function Input({
   const { inputType, toggleVisibility } = usePasswordToggle("password");
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    if(type === 'email'  && e.target.value && !validateEmail(e.target.value)) {
+    if (type === 'email' && e.target.value && !validateEmail(e.target.value)) {
       setLocalError("Formato email non valido!")
     } else {
       setLocalError(null);
@@ -88,9 +90,11 @@ function Input({
     id: inputId,
     placeholder,
     onChange,
+    onClick,
     disabled,
     readOnly,
     required,
+    onKeyDown,
     className: inputFieldClasses,
     value,
     ...props,
@@ -114,6 +118,7 @@ function Input({
             disabled={disabled}
             className={leadingIconClasses}
             onClick={onLeadingIconClick}
+            onKeyDown={() => onKeyDown}
           />
         )}
 
@@ -126,7 +131,7 @@ function Input({
         ) : (
           <input
             {...(commonInputProps as React.InputHTMLAttributes<HTMLInputElement>)}
-            type={isPassword ? inputType: type}
+            type={isPassword ? inputType : type}
             onBlur={handleBlur}
           />
         )}
@@ -140,7 +145,7 @@ function Input({
                 label={icon.label}
                 onClick={icon.onClick}
                 size="small"
-                variant={'default'} 
+                variant={'default'}
                 disabled={disabled || icon.disabled}
                 className={iconBaseClasses}
               />

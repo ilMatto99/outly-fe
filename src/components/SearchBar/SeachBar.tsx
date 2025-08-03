@@ -1,70 +1,81 @@
 import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { useState, type ChangeEvent } from "react"
+import useSearchState from "@/hooks/useSearchState"
+import { type ChangeEvent } from "react"
 import type { DateRange } from "react-day-picker"
+import "../../index.css"
 import Button from "../Button/button"
 import Input from "../Input/input"
-import "../../index.css"
 
 export interface SearchBarProps {
     onFilterClick?: () => void;
     onSearch?: (searchTerm: string, dateRange?: DateRange) => void;
+    //Prop per i filtri selezionati dalla pagina filtri
+    initialSearchTerm?: string;
+    initialDateRange?: DateRange;
+    onSearchTermChange?: (term: string) => void;
+    onDateRangeChange?: (range: DateRange | undefined) => void;
 }
 
-export function SearchBar({ onFilterClick, onSearch }: SearchBarProps) {
-    const [date, setDate] = useState<DateRange | undefined>();
-    const [tempDate, setTempDate] = useState<DateRange | undefined>();
-    const [calendarOpen, setCalendarOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState<string>("");
+export function SearchBar({
+    onDateRangeChange,
+    onSearchTermChange,
+    onFilterClick,
+    onSearch,
+    initialSearchTerm = "",
+    initialDateRange,
+}: SearchBarProps) {
+    const {
+        searchTerm,
+        setSearchTerm,
+        date,
+        setDate,
+        tempDate,
+        setTempDate,
+        calendarOpen,
+        setCalendarOpen
+    } = useSearchState(initialSearchTerm, initialDateRange);
 
     const handleConfirmDate = () => {
-        setDate(tempDate)
-        setCalendarOpen(false)
-        if (onSearch) {
-            onSearch(searchTerm, tempDate)
-        }
-    }
+        setDate(tempDate);
+        setCalendarOpen(false);
+        onDateRangeChange?.(tempDate);
+    };
 
     const handleClearDate = () => {
-        setTempDate(undefined)
-        setDate(undefined)
-        if (onSearch) {
-            onSearch(searchTerm, undefined)
-        }
-    }
+        setTempDate(undefined);
+        setDate(undefined);
+    };
 
     const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setSearchTerm(e.target.value)
-        if (onSearch) {
-            onSearch(e.target.value, date)
-        }
-    }
+        setSearchTerm(e.target.value);
+        onSearchTermChange?.(e.target.value);
+    };
 
-    /* const displayDateRange = date?.from ?
-        date.to ?
-            `${format(date.from, "dd/MM/yyyy")} - ${format(date.to, "dd/MM/yyyy")}`
-            : format(date.from, "dd/MM/yyyy")
-        : "" */
+    const handleSearchSubmit = () => {
+        onSearch?.(searchTerm, date);
+    };
 
     return (
         <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
-            <PopoverTrigger asChild>
-                <Input
-                    label=""
-                    className=""
-                    type="search"
-                    placeholder={
-                        "Cerca un'attività"
-                    }
-                    value={searchTerm}
-                    onChange={handleSearchInputChange}
-                    leadingIcon="search"
-                    trailingIcons={[
-                        { iconName: 'calendar', label: 'Calendario', onClick: () => setCalendarOpen(true) },
-                        { iconName: 'filter', label: 'Filtri', onClick: onFilterClick }
-                    ]}
-                />
-            </PopoverTrigger>
+            <Input
+                label=""
+                className=""
+                type="search"
+                placeholder={"Cerca un luogo"}
+                value={searchTerm}
+                onChange={handleSearchInputChange}
+                onKeyDown={e => e.key === "Enter" && handleSearchSubmit()}
+
+                leadingIcon="search"
+                onLeadingIconClick={handleSearchSubmit}
+
+                trailingIcons={[
+                    { iconName: "calendar", label: "Calendario", onClick: () => setCalendarOpen(true) },
+                    { iconName: "filter", label: "Filtri", onClick: onFilterClick }
+                ]}
+            />
+            <PopoverTrigger asChild><div /></PopoverTrigger>
             <PopoverContent className="w-auto p-0">
                 <Calendar
                     mode="range"
@@ -78,7 +89,7 @@ export function SearchBar({ onFilterClick, onSearch }: SearchBarProps) {
                     <Button onClick={handleConfirmDate} label="Conferma"></Button>
                 </div>
             </PopoverContent>
-        </Popover>
+        </Popover >
     )
 }
 
