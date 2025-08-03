@@ -1,4 +1,4 @@
-import { BASE_URL_LIV } from "./config";
+import { BASE_URL_LIVELLO } from "./config";
 
 /**
  * Recupera tutti i livelli disponibili dal backend.
@@ -11,7 +11,7 @@ import { BASE_URL_LIV } from "./config";
  */
 
 export const getLivelli = async () => {
-    const response = await fetch(`${BASE_URL_LIV}carica`, {
+    const response = await fetch(`${BASE_URL_LIVELLO}carica`, {
         method: 'GET'
     }
     );
