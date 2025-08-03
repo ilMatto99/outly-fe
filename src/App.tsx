@@ -8,6 +8,7 @@ import { Signup } from './pages/Signup';
 import { CompleteSignup } from './pages/CompleteSignup';
 import { AuthCallBack } from './pages/AuthCallBack';
 import { HomePageProv } from './pages/HomePageProv';
+import ChatListPage from './pages/ChatListPage';
 
 /**
  * Componente principale dell'applicazione.
@@ -25,6 +26,7 @@ function App() {
         <Route path="/complete-signup" element={<CompleteSignup />} />
         <Route path="/auth-callback" element={<AuthCallBack />} />
         <Route path="/home" element={<HomePageProv />} />
+        <Route path="/chat-list" element={<ChatListPage />} />
       </Routes>
     </>
   )
