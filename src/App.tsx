@@ -8,6 +8,9 @@ import { Signup } from './pages/Signup';
 import { CompleteSignup } from './pages/CompleteSignup';
 import { AuthCallBack } from './pages/AuthCallBack';
 import { HomePageProv } from './pages/HomePageProv';
+import { SearchPage } from './pages/SearchPage';
+import { FiltersPage } from './pages/FiltersPage';
+import { SearchResultsPage } from './pages/SearchResultsPage';
 
 /**
  * Componente principale dell'applicazione.
@@ -19,12 +22,20 @@ function App() {
   return (
     <>
       <Routes>
+        {/* Onboarding e Autenticazione */}
         <Route path="/" element={<Onboarding />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/complete-signup" element={<CompleteSignup />} />
         <Route path="/auth-callback" element={<AuthCallBack />} />
+
+        {/* Homepage */}
         <Route path="/home" element={<HomePageProv />} />
+
+        {/* Ricerca */}
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/filters" element={<FiltersPage />} />
+        <Route path="/results" element={<SearchResultsPage />} />
       </Routes>
     </>
   )
