@@ -2,7 +2,7 @@ import Button from "@/components/Button/button";
 import Input from "@/components/Input/input";
 import { useCompleteSignup } from "@/hooks/useCompleteSignup";
 import { useLivelli } from "@/hooks/useLivelli";
-import type { LivelloDTO } from "@/types/LivelloDTO";
+import type { Livello } from "@/types/Livello";
 import type { LocationState } from "@/types/UtenteParzialeDTO";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -151,7 +151,7 @@ export const CompleteSignup = () => {
                         required
                     >
                         <option value="">Seleziona un livello</option>
-                        {livelli.map((livello: LivelloDTO) => (
+                        {livelli.map((livello: Livello) => (
                             <option key={livello.id} value={livello.id}>
                                 {livello.nome}
                             </option>

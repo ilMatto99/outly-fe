@@ -15,8 +15,8 @@ export default function Onboarding() {
 
     return (
         <div className="flex flex-col w-full min-h-screen bg-white text-gray-800">
-            {/* Navbar Placeholder */}
-            <div className="w-full h-12 bg-gray-200 text-center flex items-center justify-center text-sm text-gray-600">
+            {/* Navbar fissa placeholder */}
+            <div className="w-full h-[74px] bg-gray-200 text-center flex items-center justify-center text-sm text-gray-600 fixed top-0 left-0 z-50">
                 Navbar Placeholder
             </div>
 
