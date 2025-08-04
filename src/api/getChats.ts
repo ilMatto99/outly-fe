@@ -5,7 +5,7 @@ export const getChats = async (idUtente: number) => {
     method: "GET",
   });
 
-  const data = await response.json(); // fai il parse una sola volta
+  const data = await response.json(); 
 
   if (!response.ok) {
     console.error("Errore:", data);

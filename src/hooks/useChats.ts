@@ -1,9 +1,9 @@
 import { getChats } from "@/api/getChats";
-import type { ChatDTO } from "@/types/ChatDTO";
+import type { Chat } from "@/types/Chat";
 import { useEffect, useState } from "react";
 
 export const useChats = (idUtente:number) => {
-    const [chats, setChats] = useState<ChatDTO[]>([]);
+    const [chats, setChats] = useState<Chat[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -13,7 +13,6 @@ export const useChats = (idUtente:number) => {
         .finally(() => setLoading(false))
     }, [idUtente]);
 
-    console.log(chats);
 
     return { chats, loading }
 }

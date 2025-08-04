@@ -1,11 +1,19 @@
 import MessageListItem from "@/components/Chat/MessageListItem/MessageListItem";
 import { useChats } from "@/hooks/useChats";
+import { timeCalculator } from "@/TimeCalculator/time";
+import { useNavigate } from "react-router";
 
 const ChatListPage = () => {
+
+    const navigate = useNavigate();
 
     let idUtente = 12;
 
     const {chats,loading} = useChats(idUtente);
+
+    const onClick = (id:string) => {
+          navigate(`/chat/${id}`);
+        };
 
     return (
   <>
@@ -13,10 +21,8 @@ const ChatListPage = () => {
       <p>Caricamento chat in corso...</p> // oppure uno Spinner
     ) : (
       chats.map((chat) => {
-        const orario = new Date(chat.dataUltimoMessaggio).toLocaleTimeString("it-IT", {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+
+        const orario = timeCalculator(chat.dataUltimoMessaggio)
 
         let chatName: string = "nome";
         let avatarUrl: string = "avatar";
@@ -35,12 +41,14 @@ const ChatListPage = () => {
 
         return (
           <MessageListItem
-            key={chat.id} // sempre meglio inserire la chiave nel map
+            key={chat.id} 
             id={chat.id}
             chatName={chatName}
             avatarUrl={avatarUrl}
             lastMessage={chat.ultimoMessaggio}
             lastMessageTime={orario}
+            onClick={() => onClick(chat.id)}
+            isGroupChat={chat.gruppo}
           />
         );
       })

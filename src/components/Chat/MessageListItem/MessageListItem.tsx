@@ -38,17 +38,28 @@ const MessageListItem = ({
     const statusIconName = lastMessageStatus === 'checked' ? 'double-check' : (lastMessageStatus === 'delivered' ? 'check' : undefined);
 
     return (
-        <div
+        /*<div
             onClick={handleItemClick}
             className={cn(
-                "flex w-full cursor-pointer items-center gap-3 border-b border-gray-100 bg-white p-3 transition-colors hover:bg-gray-50",
+                "flex w-full cursor-pointer items-center gap-3 border-b border-gray-100 bg-white p-3 transition-colors ",//hover:bg-gray-50
+                "font-['Nunito_Sans','Helvetica_Neue',Helvetica,Arial,sans-serif]",
+                className
+            )}
+        >*/
+       <div
+            onClick={handleItemClick}
+            className={cn(
+                "flex items-center gap-3 border border-gray-100 p-3 transition-colors rounded-xl",
                 "font-['Nunito_Sans','Helvetica_Neue',Helvetica,Arial,sans-serif]",
                 className
             )}
         >
             <Avatar src={avatarUrl} alt={`${chatName} Avatar`} />
 
+
             {/* Contenuto della chat (nome, ultimo messaggio) */}
+
+            {/*
             <div className="flex flex-col flex-grow min-w-0">
                 <div className="flex items-center justify-between">
                     <h3 className="truncate text-base font-semibold text-gray-800">{chatName}</h3>
@@ -65,6 +76,36 @@ const MessageListItem = ({
                     <p className="truncate">{lastMessage}</p>
                 </div>
             </div>
+            */}
+
+            <div className="flex flex-col flex-grow min-w-0">
+                
+                <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                    <h3 className="truncate text-base font-semibold text-gray-800 max-w-[75%] sm:max-w-[85%]">
+                    {chatName}
+                    </h3>
+                    <span className="text-xs text-gray-500 flex-shrink-0">
+                    {lastMessageTime}
+                    </span>
+                </div>
+
+                
+                <div className="flex items-center gap-1 text-sm text-gray-600">
+                    {isLastMessageSentByMe && statusIconName && (
+                    <Icon
+                        name={statusIconName}
+                        size={14}
+                        className={cn(
+                        lastMessageStatus === "checked"
+                            ? "text-green-500"
+                            : "text-gray-400"
+                        )}
+                    />
+                    )}
+                    <p className="truncate">{lastMessage}</p>
+                </div>
+            </div>
+
 
             {/* Contatore messaggi non letti */}
             {unreadCount !== undefined && unreadCount > 0 ? ( 

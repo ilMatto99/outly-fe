@@ -4,7 +4,7 @@ export interface Partecipante {
   avatarUrl:string;  
 }
 
-export type ChatDTO = {
+export type Chat = {
     id: string;
     nome: string;
     partecipanti: Partecipante[];
