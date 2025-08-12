@@ -2,6 +2,7 @@ import { postCompletaRegistrazione } from "@/api/postCompletaRegistrazione";
 import type { UtenteDTO } from "@/types/UtenteDTO";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "./useAuth";
 
 /**
  * Hook personalizzato per gestire il completamento della registrazione utente.
@@ -12,7 +13,9 @@ import { useNavigate } from "react-router";
 export const useCompleteSignup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
+  const { setUserId } = useAuth();
+
   const navigate = useNavigate();
 
   /**
@@ -26,15 +29,20 @@ export const useCompleteSignup = () => {
    *
    * @param utente Il DTO contenente tutti i dati necessari per completare la registrazione dell'utente.
    */
-  
-  async function handleRegistrazione(utente: UtenteDTO) {
+
+  async function handleRegistrazione(nuovoUtente: UtenteDTO) {
     try {
       setLoading(true);
-      console.log(utente)
-      await postCompletaRegistrazione(utente);
+      const registeredUser = await postCompletaRegistrazione(nuovoUtente);
+      console.log("Risposta backend (Registrazione completa):", registeredUser);
+
+      // Imposta l'ID utente nel contesto globale
+      setUserId(registeredUser.idUtente);
+
       navigate("/home");
-    } catch(error) {
+    } catch (error) {
       setError((error as Error).message || "Errore nella registrazione");
+      setUserId(null);
     } finally {
       setLoading(false);
     }

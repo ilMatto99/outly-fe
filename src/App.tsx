@@ -1,4 +1,3 @@
-//import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router';
 import './App.css';
 import './index.css';

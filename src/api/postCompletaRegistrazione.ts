@@ -1,5 +1,6 @@
 import type { UtenteDTO } from "@/types/UtenteDTO";
 import { BASE_URL_UTENTE } from "./config";
+import type { UtenteOutDTO } from "@/types/UtenteOutDTO";
 
 /**
  * Completa la registrazione di un nuovo utente.
@@ -13,7 +14,7 @@ import { BASE_URL_UTENTE } from "./config";
  * @throws Error se la fetch non va a buon fine.
  */
 
-export const postCompletaRegistrazione = async (user: UtenteDTO) => {
+export const postCompletaRegistrazione = async (user: UtenteDTO): Promise<UtenteOutDTO> => {
     const response = await fetch(`${BASE_URL_UTENTE}registrazione`, {
         "method": "POST",
         headers: {

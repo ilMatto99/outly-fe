@@ -1,5 +1,6 @@
 import type { AutenticazioneDTO } from "@/types/AutenticazioneDTO"
 import { BASE_URL_UTENTE } from "./config";
+import type { UtenteOutDTO } from "@/types/UtenteOutDTO";
 
 /**
  * Effettua l'autenticazione di un utente.
@@ -13,7 +14,7 @@ import { BASE_URL_UTENTE } from "./config";
  * @throws Error se la fetch non va a buon fine.
  */
 
-export const postAutenticazione = async (login: AutenticazioneDTO) => {
+export const postAutenticazione = async (login: AutenticazioneDTO): Promise<UtenteOutDTO> => {
     const response = await fetch(`${BASE_URL_UTENTE}autenticazione`, {
         method: 'POST',
         headers: {

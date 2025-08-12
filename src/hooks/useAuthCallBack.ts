@@ -2,6 +2,8 @@ import { getDatiUtenteGoogle } from "@/api/getDatiUtenteGoogle";
 import type { LocationState } from "@/types/UtenteParzialeDTO";
 import { useEffect } from "react";
 import { useNavigate } from "react-router"
+import { useAuth } from "./useAuth";
+import { getCaricaUtenteAttuale } from "@/api/getCaricaUtenteAttuale";
 
 /**
  * Hook personalizzato per gestire il callback dell'autenticazione Google.
@@ -15,13 +17,29 @@ import { useNavigate } from "react-router"
 export const useAuthCallBack = () => {
     const navigate = useNavigate();
 
+    const { setUserId } = useAuth();
+
     useEffect(() => {
         async function handleAuth() {
+
             try {
                 const data = await getDatiUtenteGoogle();
+                console.log("Risposta backend (Login Google):", data);
 
                 if (data.registrato) {
-                    navigate("/home");
+                    const email = data.utenteParzialeDTO.email;
+                    if (email) {
+                        const utente = await getCaricaUtenteAttuale(email);
+                        console.log("Dati utente attuale:", utente);
+
+                        setUserId(utente.idUtente);
+
+                        navigate("/home");
+                    } else {
+                        console.error("Email non trovata nell'oggetto utente parziale di Google");
+                        setUserId(null);
+                        navigate("/login")
+                    }
                 } else {
                     // Prepara i dati per CompleteSignup usando UtenteParzialeDTO
                     const partialUserData: LocationState = {
@@ -32,15 +50,16 @@ export const useAuthCallBack = () => {
                         passwordHash: "",
                     };
                     navigate("/complete-signup", {
-                        state: partialUserData 
+                        state: partialUserData
                     });
                 }
             } catch (error) {
-                console.log((error as Error).message)
-                throw new Error("Errore nel login Google");
+                setUserId(null);
+                console.log(`Errore nel login Google: ${(error as Error).message}`);
+                navigate("/login");
             }
         }
 
         handleAuth();
-    }, [navigate])
+    }, [navigate, setUserId])
 }

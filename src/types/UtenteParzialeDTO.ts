@@ -4,9 +4,10 @@
  * ad esempio dopo un'autenticazione tramite provider esterni (es. Google).
  */
 export type UtenteParzialeDTO = {
-    email?: string;
+    id?: number;
     nome?: string;
     cognome?: string;
+    email?: string;
     avatarUrl?: string;
 }
 

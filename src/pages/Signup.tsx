@@ -60,6 +60,10 @@ export const Signup = () => {
         }
     };
 
+    const handleClick = () => {
+        
+    }
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-gray-800 p-4">
             <div className="logo mb-8 mt-2">
@@ -112,7 +116,7 @@ export const Signup = () => {
             </div>
             <div className="flex flex-col items-center mt-0 space-y-3">
                 <Link to={"/login"}>
-                    <Button variant={"link"} label="Hai già un account?" onClick={() => console.log("vai a login")} />
+                    <Button variant={"link"} label="Hai già un account?" onClick={handleClick} />
                 </Link>
             </div>
         </div>

@@ -3,6 +3,7 @@ import type { AutenticazioneDTO } from "@/types/AutenticazioneDTO";
 import type { UtenteDTO } from "@/types/UtenteDTO";
 import { useState } from "react"
 import { useNavigate } from "react-router";
+import { useAuth } from "./useAuth";
 
 /**
  * Hook personalizzato per gestire l'autenticazione dell'utente.
@@ -14,6 +15,8 @@ import { useNavigate } from "react-router";
 export const useAutenticazione = (onUtenteNonTrovato?: () => void) => {
     const [error, setError] = useState<string | null>(null);
     const [utente, setUtente] = useState<UtenteDTO | null>(null);
+
+    const { setUserId } = useAuth();
 
     const navigate = useNavigate();
 
@@ -27,19 +30,23 @@ export const useAutenticazione = (onUtenteNonTrovato?: () => void) => {
      *
      * @param login Il DTO contenente le credenziali di autenticazione (email e password).
      */
-    
+
     const autenticazione = async (login: AutenticazioneDTO) => {
         try {
             const utenteLoggato = await postAutenticazione(login);
+            console.log("Risposta backend (Login normale):", utenteLoggato);
 
             setUtente(utenteLoggato);
             setError(null);
-            navigate("/home");
+
+            // Imposta l'ID utente nel contesto globale
+            setUserId(utenteLoggato.idUtente);
 
             navigate("/home");
         } catch (err) {
             setError(`Errore durante l'autenticazione. + ${err}`);
             if (onUtenteNonTrovato) onUtenteNonTrovato();
+            setUserId(null);
 
             navigate("/signup", {
                 state: {

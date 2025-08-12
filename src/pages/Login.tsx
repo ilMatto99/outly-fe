@@ -33,6 +33,10 @@ export const Login = () => {
         autenticazione({ email, password })
     }
 
+    const handleClick = () => {
+        
+    }
+
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white text-gray-800 p-4">
             <div className="logo mb-8 mt-2" >
@@ -74,10 +78,10 @@ export const Login = () => {
             </div>
             <div className="flex flex-col items-center mt-6 space-y-3">
                 <Link to={"/signup"}>
-                    <Button variant={"link"} label="Crea un nuovo account" onClick={() => console.log("vai a signup")} />
+                    <Button variant={"link"} label="Crea un nuovo account" onClick={handleClick} />
                 </Link>
                 {/* TODO: Prevedere il recupero password */}
-                <Button variant={"link"} label="Hai dimenticato la password?" onClick={() => console.log("password reset")} />
+                <Button variant={"link"} label="Hai dimenticato la password?" onClick={handleClick} />
             </div>
         </div >
     )
