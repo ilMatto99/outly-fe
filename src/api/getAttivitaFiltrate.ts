@@ -1,3 +1,6 @@
+import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
+import { BASE_URL_ATTIVITA } from "./config";
+
 /**
  * Recupera le attività filtrate in base ai criteri specificati.
  *
@@ -11,51 +14,34 @@
  * @throws Error se la fetch non va a buon fine.
  */
 
-import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
-import { BASE_URL_ATTIVITA } from "./config";
-
 export const getAttivitaFiltrate = async (
-    filtro: FiltroAttivitaDTO,
+    filters: FiltroAttivitaDTO,
     idUtente: number
 ) => {
+    // Costruiamo la stringa dei parametri di query
     const params = new URLSearchParams();
 
-    //Aggiunge l'idUtente come parametro obbligatorio
-    params.append("idUtente", idUtente.toString());
+    // Aggiungiamo l'idUtente (obbligatorio per il backend)
+    params.append('idUtente', idUtente.toString());
 
-    //Aggiunge i capi del filtro se presenti
-    if (filtro.dataInizio) {
-        params.append("dataInizio", filtro.dataInizio.toISOString());
-    }
-    if (filtro.dataFine) {
-        params.append("dataFine", filtro.dataFine.toISOString());
-    }
-    if (filtro.difficolta !== undefined && filtro.difficolta !== null) {
-        params.append("difficolta", filtro.difficolta.toString());
-    }
-    if (filtro.sport !== undefined && filtro.sport !== null) {
-        params.append("sport", filtro.sport.toString());
-    }
-    if (filtro.km !== undefined && filtro.km !== null) {
-        params.append("km", filtro.km.toString());
-    }
-    if (filtro.luogo) {
-        params.append("luogo", filtro.luogo);
-    }
-    if (filtro.rangeKm !== undefined && filtro.rangeKm !== null) {
-        params.append("rangeKm", filtro.rangeKm.toString());
-    } else if (filtro.km !== undefined && filtro.km !== null) {
-        params.append("rangeKm", filtro.km.toString());
-    }
+    // Aggiungiamo i parametri solo se esistono
+    if (filters.rangeKm !== undefined) params.append('rangeKm', filters.rangeKm.toString());
+    if (filters.dataInizio) params.append('dataInizio', filters.dataInizio);
+    if (filters.dataFine) params.append('dataFine', filters.dataFine);
+    if (filters.difficolta !== undefined) params.append('difficolta', filters.difficolta.toString());
+    if (filters.sport !== undefined) params.append('sport', filters.sport.toString());
+    if (filters.km !== undefined) params.append('km', filters.km.toString());
+    if (filters.luogo) params.append('luogo', filters.luogo);
 
     const queryString = params.toString();
     const url = `${BASE_URL_ATTIVITA}attivitaFiltrate?${queryString}`;
+    console.log(url)
 
     const response = await fetch(url, {
         method: 'GET'
     });
 
-    if(!response.ok) {
+    if (!response.ok) {
         throw new Error(`Errore nella fetch a ${url}`)
     };
 

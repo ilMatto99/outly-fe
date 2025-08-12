@@ -1,32 +1,44 @@
 import { getAttivitaFiltrate } from "@/api/getAttivitaFiltrate";
 import type { AttivitaDTO } from "@/types/AttivitaDTO";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "./useAuth";
 
-interface UseActivitiesProps {
-  activities: AttivitaDTO[];
-  loading: boolean;
-  error: string | null;
-  onSearchActivities: (filtro: FiltroAttivitaDTO, idUtente: number) => void;
-}
-
-export const useActivities = (): UseActivitiesProps => {
+export const useActivities = (filters: FiltroAttivitaDTO) => {
   const [activities, setActivities] = useState<AttivitaDTO[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const onSearchActivities = async (filtro: FiltroAttivitaDTO, idUtente: number) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await getAttivitaFiltrate(filtro, idUtente); // Chiamata alla fetch
-      setActivities(data);
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { userId, loadingAuth } = useAuth();
 
-  return { activities, loading, error, onSearchActivities };
+  useEffect(() => {
+    const fetchAttivita = async () => {
+      // Non fa la fetch se l'autenticazione è ancora in corso o se userId non è disponibile
+      if (loadingAuth || userId === null) {
+        setLoading(false); 
+        if (!loadingAuth && userId === null) {
+          setError("ID utente non disponibile. Effettua il login per visualizzare le attività.");
+        }
+        setActivities([]); // Resetta i dati
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        
+        const data = await getAttivitaFiltrate(filters, userId);
+        setActivities(data);
+        console.log("Dati delle attività ricevuti:", data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAttivita();
+  }, [filters, userId, loadingAuth])
+
+  return { activities, loading, error };
 };

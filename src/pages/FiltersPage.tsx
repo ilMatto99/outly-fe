@@ -1,10 +1,10 @@
-import { sportsData } from "@/api/sports";
 import Button from "@/components/Button/button";
 import { RadioGroup, RadioGroupItem } from "@/components/RadioGroup/radio-group";
 import { useFiltersData } from "@/hooks/useFiltersData";
+import { useSports } from "@/hooks/useSports";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router";
 
 export const FiltersPage = () => {
   const navigate = useNavigate();
@@ -14,18 +14,17 @@ export const FiltersPage = () => {
 
   const [selectedSport, setSelectedSport] = useState<number | undefined>(initialFilters.sport);
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | undefined>(initialFilters.difficolta);
-  const [distanceKm, setDistanceKm] = useState<number | undefined>(initialFilters.rangeKm);
-  const [selectedLevel, setSelectedLevel] = useState<number | undefined>(initialFilters.km);
+  const [distanceKm, setDistanceKm] = useState<number | undefined>(initialFilters.km);
 
-  const { difficulties, levels, loading, error } = useFiltersData();
+  const { difficulties, loading: FilterLoading, error } = useFiltersData();
+  const { sports, loading: SportsLoading } = useSports();
 
   const handleApplyFilters = () => {
     const filtersToApply: Partial<FiltroAttivitaDTO> = {
       ...initialFilters,
       sport: selectedSport,
       difficolta: selectedDifficulty,
-      rangeKm: distanceKm,
-      km: selectedLevel,
+      km: distanceKm,
     }
     navigate("/search", {
       state: {
@@ -38,10 +37,9 @@ export const FiltersPage = () => {
     setSelectedSport(undefined);
     setSelectedDifficulty(undefined);
     setDistanceKm(undefined);
-    setSelectedLevel(undefined);
   };
 
-  if (loading) return <div>Caricamento filtri...</div>;
+  if (FilterLoading || SportsLoading) return <div>Caricamento filtri...</div>;
   if (error) return <div>Errore nel caricamento dei filtri: {error}</div>;
 
   return (
@@ -62,10 +60,10 @@ export const FiltersPage = () => {
             onValueChange={(value) => setSelectedSport(Number(value))}
           >
             {/* Mappa i dati e restituisce i RadioGroupItem come figli */}
-            {sportsData.map((sport) => (
+            {sports.map((sport) => (
               <RadioGroupItem
-                key={sport.id}
-                value={sport.id.toString()}
+                key={sport.idSport} 
+                value={sport.idSport.toString()} 
                 label={sport.nome}
               />
             ))}
@@ -102,24 +100,7 @@ export const FiltersPage = () => {
             ))}
           </RadioGroup>
         </div>
-
-        {/* Filtro per Livello  */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Livello Utente</h2>
-          <RadioGroup
-            value={selectedLevel !== undefined ? selectedLevel?.toString() : ""}
-            onValueChange={(value) => setSelectedLevel(Number(value))}
-          >
-            {levels.map((level) => (
-              <RadioGroupItem
-                key={level.id}
-                value={level.id.toString()}
-                label={level.nome.charAt(0).toUpperCase() + level.nome.slice(1)}
-              />
-            ))}
-          </RadioGroup>
-        </div>
-      </div>
+      </div> 
 
       {/* Footer fisso placeholder */}
         <div className="fixed bottom-0 p-4 w-full h-[101px] bg-white flex justify-end gap-4 items-center text-sm text-gray-700 shadow-2xl shadow-black">

@@ -1,6 +1,6 @@
 export type FiltroAttivitaDTO = {
-    dataInizio?: Date;
-    dataFine?: Date;
+    dataInizio?: string;
+    dataFine?: string;
     difficolta?: number;
     sport?: number;
     km?: number;

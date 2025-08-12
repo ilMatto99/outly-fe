@@ -1,34 +1,68 @@
+import CardActivity from "@/components/CardActivity/CardActivity";
+import SearchBar from "@/components/SearchBar/SeachBar";
+import { useActivities } from "@/hooks/useActivities";
+import type { AttivitaDTO } from "@/types/AttivitaDTO";
 import { format } from "date-fns";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 export const SearchResultsPage = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const filters = location.state?.filters;
 
-    const displayDate = (date?: Date) => date ? format(date, "dd/MM/yyyy") : "Non specificata";
+    const { activities, loading, error } = useActivities(filters);
+
+    const handleClick = () => {
+        navigate("/search");
+    };
+
+    const displayDate = (dateString?: string) => {
+        return dateString ? format(new Date(dateString), "dd/MM/yyyy") : "Data non specificata";
+    };
 
     return (
         <>
             {/* Navbar fissa placeholder */}
-            <div className="w-full h-[74px] bg-gray-200 text-center flex items-center justify-center text-sm text-gray-600 fixed top-0 left-0 z-50">
+            <div className="w-full h-[74px] fixed top-0 bg-gray-200 flex items-center justify-center text-sm text-gray-600">
                 Navbar Placeholder
             </div>
-            <div className="mt-[80px] p-4">
-                <h1 className="text-xl font-bold mb-2">Risultati cercati con i seguenti filtri:</h1>
-                <ul className="list-disc list-inside p-4 bg-gray-100 rounded-md">
-                    {filters?.luogo && <li>Luogo: {filters.luogo}</li>}
-                    {filters?.dataInizio && <li>Data Inizio: {displayDate(filters.dataInizio)}</li>}
-                    {filters?.dataFine && <li>Data Fine: {displayDate(filters.dataFine)}</li>}
-                    {filters?.sport && <li>Sport (ID): {filters.sport}</li>}
-                    {filters?.difficolta && <li>Difficoltà (ID): {filters.difficolta}</li>}
-                    {filters?.rangeKm && <li>Raggio (Km): {filters.rangeKm}</li>}
-                    {filters?.km && <li>Livello Attività (ID): {filters.km}</li>}
-                </ul>
-            </div>   
+            <div className="flex-1 pt-[74px] ">
+                <div className="bg-white px-4 py-6 sticky top-[74px] flex justify-center" onClick={handleClick}>
+                    <SearchBar />
+                </div>
+
+                <div className="container mx-auto p-4">
+                    {loading && <p className="text-center text-lg text-gray-600">Caricamento attività...</p>}
+                    {error && <p className="text-center text-lg text-red-500">Errore: {error}</p>}
+                    {!loading && !error && activities.length === 0 && (
+                        <p className="text-center text-lg text-gray-600">Nessuna attività trovata con i filtri selezionati.</p>
+                    )}
+                </div>
+
+                {!loading && activities.length > 0 && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {activities.map((activity: AttivitaDTO, index: number) => (
+                            <CardActivity
+                                key={index}
+                                title={activity.titolo}
+                                location={activity.luogo}
+                                date={displayDate(activity.dataAttivita)}
+                                distance={`${activity.km} km`}
+                                duration={`${activity.durata} min`}
+                                difficulty={`Difficoltà: ${activity.difficolta}`}
+                                mapImage={activity.mappaUrl}
+                            />
+                        ))}
+                    </div>
+                )}
+
+
+            </div>
+
             {/* Footer fisso placeholder */}
             <div className="fixed bottom-0 w-full h-[101px] bg-gray-300 flex items-center justify-center text-sm text-gray-700">
                 Footer Placeholder
-            </div>         
+            </div>
         </>
 
     )

@@ -1,5 +1,6 @@
 import SearchBar from "@/components/SearchBar/SeachBar"
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
+import { toLocalDateTimeString } from "@/utils/dateUtils";
 import { format } from "date-fns";
 
 import { useState, useEffect } from "react";
@@ -13,18 +14,28 @@ export const SearchPage = () => {
     // Recupera i filtri passati dalla pagina precedente
     const initialFilters: Partial<FiltroAttivitaDTO> = location.state?.filters || {};
 
+    // Converte le stringhe data in oggetti Date per inizializzare il DatePicker
+    const initialDateRangeFrom = initialFilters.dataInizio ? new Date(initialFilters.dataInizio) : undefined;
+    const initialDateRangeTo = initialFilters.dataFine ? new Date(initialFilters.dataFine) : undefined;
+
     const [savedFilters, setSavedFilters] = useState<Partial<FiltroAttivitaDTO>>(initialFilters);
     const [currentSearchTerm, setCurrentSearchTerm] = useState(savedFilters.luogo || "");
     const [currentDateRange, setCurrentDateRange] = useState<{ from?: Date; to?: Date }>({
-        from: savedFilters.dataInizio,
-        to: savedFilters.dataFine,
+        from: initialDateRangeFrom,
+        to: initialDateRangeTo,
     });
 
 
     useEffect(() => {
         // Aggiorna lo stato dei filtri quando la location.state cambia
         if (location.state?.filters) {
-            setSavedFilters(location.state.filters);
+            const filtersFromState: Partial<FiltroAttivitaDTO> = location.state.filters;
+            setSavedFilters(filtersFromState);
+            setCurrentSearchTerm(filtersFromState.luogo || "");
+            setCurrentDateRange({
+                from: filtersFromState.dataInizio ? new Date(filtersFromState.dataInizio) : undefined,
+                to: filtersFromState.dataFine ? new Date(filtersFromState.dataFine) : undefined,
+            });
         }
     }, [location.state]);
 
@@ -32,10 +43,12 @@ export const SearchPage = () => {
         const newFilters: Partial<FiltroAttivitaDTO> = {
             ...savedFilters,
             luogo: term,
-            dataInizio: dateRange?.from,
-            dataFine: dateRange?.to
+            // Converte gli oggetti Date in stringhe ISO 8601 per il backend
+            dataInizio: dateRange?.from ? toLocalDateTimeString(dateRange.from) : undefined,
+            dataFine: dateRange?.to ? toLocalDateTimeString(dateRange.to) : undefined
         };
         setSavedFilters(newFilters);
+        // Naviga alla pagina dei risultati passando i filtri aggiornati
         navigate("/results", { state: { filters: newFilters } });
     };
 
@@ -43,10 +56,12 @@ export const SearchPage = () => {
         const updatedFilters = {
             ...savedFilters,
             luogo: currentSearchTerm,
-            dataInizio: currentDateRange.from,
-            dataFine: currentDateRange.to
+            // Converte gli oggetti Date in stringhe ISO 8601 per il backend
+            dataInizio: currentDateRange.from ? toLocalDateTimeString(currentDateRange.from) : undefined,
+            dataFine: currentDateRange.to ? toLocalDateTimeString(currentDateRange.to) : undefined
         };
         setSavedFilters(updatedFilters);
+        // Naviga alla pagina dei filtri passando i filtri aggiornati
         navigate("/filters", { state: { filters: updatedFilters } });
     };
 
@@ -54,7 +69,12 @@ export const SearchPage = () => {
         setCurrentDateRange({ from: range?.from, to: range?.to });
     };
 
-    const displayDate = (date?: Date) => date ? format(date, "dd/MM/yyyy") : "Non specificata";
+    // Funzione per visualizzare la data, accetta Date o stringa ISO
+    const displayDate = (dateInput?: Date | string) => {
+        if (!dateInput) return "Non specificata";
+        const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+        return format(date, "dd/MM/yyyy");
+    };
 
     return (
         <>
@@ -66,7 +86,10 @@ export const SearchPage = () => {
                 <div className="bg-white px-4 py-6 sticky top-[74px] flex justify-center">
                     <SearchBar
                         initialSearchTerm={savedFilters.luogo || ""}
-                        initialDateRange={{ from: savedFilters.dataInizio, to: savedFilters.dataFine }}
+                        initialDateRange={{
+                            from: savedFilters.dataInizio ? new Date(savedFilters.dataInizio) : undefined,
+                            to: savedFilters.dataFine ? new Date(savedFilters.dataFine) : undefined
+                        }}
                         onSearch={handleSearch}
                         onFilterClick={handleFilterClick}
                         onSearchTermChange={setCurrentSearchTerm}
@@ -83,7 +106,7 @@ export const SearchPage = () => {
                         {savedFilters.sport && <li>Sport (ID): {savedFilters.sport}</li>}
                         {savedFilters.difficolta && <li>Difficoltà (ID): {savedFilters.difficolta}</li>}
                         {savedFilters.rangeKm && <li>Raggio (Km): {savedFilters.rangeKm}</li>}
-                        {savedFilters.km && <li>Livello Attività (ID): {savedFilters.km}</li>}
+                        {savedFilters.km && <li>Distanza Attività (Km): {savedFilters.km}</li>}
                     </ul>
                 </div>
             </div>

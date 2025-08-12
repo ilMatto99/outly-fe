@@ -62,7 +62,7 @@ export function SearchBar({
                 label=""
                 className=""
                 type="search"
-                placeholder={"Cerca un luogo"}
+                placeholder={"Cerca un luogo di partenza"}
                 value={searchTerm}
                 onChange={handleSearchInputChange}
                 onKeyDown={e => e.key === "Enter" && handleSearchSubmit()}

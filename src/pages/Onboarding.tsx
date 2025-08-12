@@ -10,7 +10,7 @@ import Icon from "@/components/Icon/Icon";
 export default function Onboarding() {
 
     const handleClick = () => {
-        console.log("clicked")
+        
     }
 
     return (

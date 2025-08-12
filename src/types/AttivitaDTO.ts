@@ -1,4 +1,5 @@
 export type AttivitaDTO = {
+    id: number;
     titolo: string;
     descrizione: string;
     sport: number;
