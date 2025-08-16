@@ -5,6 +5,12 @@ import type { AttivitaDTO } from "@/types/AttivitaDTO";
 import { format } from "date-fns";
 import { useLocation, useNavigate } from "react-router";
 
+/**
+ * Componente di pagina per visualizzare i risultati di ricerca delle attività.
+ * - Recupera i filtri dallo stato di navigazione e li passa all'hook `useActivities`.
+ * - Gestisce lo stato di caricamento e di errore della fetch.
+ * - Renderizza una lista di `CardActivity` con i risultati ottenuti.
+ */
 export const SearchResultsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -12,10 +18,19 @@ export const SearchResultsPage = () => {
 
     const { activities, loading, error } = useActivities(filters);
 
+    /**
+     * Naviga alla pagina di ricerca quando l'utente clicca sulla search bar.
+     */
     const handleClick = () => {
         navigate("/search");
     };
 
+     /**
+     * Formatta una stringa di data in formato "gg/MM/aaaa".
+     *
+     * @param dateString La data da formattare.
+     * @returns La data formattata o "Data non specificata" se la data non è valida.
+     */
     const displayDate = (dateString?: string) => {
         return dateString ? format(new Date(dateString), "dd/MM/yyyy") : "Data non specificata";
     };

@@ -1,3 +1,6 @@
+/**
+ * DTO per i filtri di ricerca delle attività.
+ */
 export type FiltroAttivitaDTO = {
     dataInizio?: string;
     dataFine?: string;

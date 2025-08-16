@@ -2,6 +2,13 @@ import { cn } from "@/lib/utils";
 import Icon from '../../Icon/Icon';
 import "../../../index.css"
 
+/**
+ * Componente riutilizzabile per un pulsante di filtro.
+ *
+ * Utilizzato per la barra dei filtri della homepage. Consiste in un'icona e
+ * un'etichetta. Supporta due stati visivi: attivo e non attivo, con stili
+ * distinti per indicare lo stato selezionato.
+ */
 interface FilterButtonProps {
   iconName: string; 
   label: string; 

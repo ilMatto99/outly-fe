@@ -5,6 +5,13 @@ const AVATAR_URL_1 = 'https://static.vecteezy.com/system/resources/previews/026/
 const AVATAR_URL_2 = 'https://static.vecteezy.com/system/resources/previews/026/812/394/large_2x/a-young-woman-cyclist-with-a-close-up-shot-of-her-smiling-face-as-she-rides-generative-ai-photo.jpg';
 const AVATAR_URL_3 = 'https://static.vecteezy.com/system/resources/previews/026/812/394/large_2x/a-young-woman-cyclist-with-a-close-up-shot-of-her-smiling-face-as-she-rides-generative-ai-photo.jpg';
 
+/**
+ * File di storie per il componente `ChatMessage`.
+ *
+ * Offre una vasta gamma di esempi per visualizzare i messaggi di chat,
+ * inclusi messaggi inviati e ricevuti, con diversi stati di lettura/consegna,
+ * avatar, nomi mittente e badge speciali (es. organizzatore).
+ */
 const meta: Meta<typeof ChatMessage> = {
     title: 'Components/Chat/ChatMessage',
     component: ChatMessage,

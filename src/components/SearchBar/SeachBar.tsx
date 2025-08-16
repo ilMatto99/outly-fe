@@ -17,6 +17,13 @@ export interface SearchBarProps {
     onDateRangeChange?: (range: DateRange | undefined) => void;
 }
 
+/**
+ * Componente riutilizzabile per una barra di ricerca.
+ *
+ * Combina un campo di input con icone per la ricerca, l'apertura di un calendario
+ * per la selezione dell'intervallo di date e un pulsante per i filtri aggiuntivi.
+ * Utilizza un hook personalizzato (`useSearchState`) per gestire lo stato interno.
+ */
 export function SearchBar({
     onDateRangeChange,
     onSearchTermChange,

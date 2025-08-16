@@ -16,6 +16,14 @@ interface AvatarListProps extends React.HTMLAttributes<HTMLDivElement> {
   customSizeClass?: string;
 }
 
+/**
+ * Componente riutilizzabile per visualizzare una lista di avatar.
+ *
+ * Mappa un array di oggetti utente e renderizza un componente `Avatar` per ciascuno.
+ * Se il numero di utenti supera `maxDisplay`, l'ultimo avatar viene sostituito
+ * con un avatar di conteggio che indica quanti utenti aggiuntivi ci sono.
+ * Supporta varie dimensioni predefinite e personalizzate.
+ */
 const AvatarList = ({
   users,
   maxDisplay,

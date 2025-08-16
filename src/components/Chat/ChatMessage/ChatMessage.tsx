@@ -3,6 +3,15 @@ import Avatar from "../../Avatar/avatar";
 import Icon from '../../Icon/Icon';
 import "../../../index.css"
 
+/**
+ * Componente riutilizzabile per un singolo messaggio di chat.
+ *
+ * Renderizza una "bolla" di messaggio che può essere di tipo `sent` (inviato) o `received`
+ * (ricevuto). A seconda del tipo, posiziona l'avatar del mittente (se disponibile),
+ * il nome del mittente, il testo del messaggio, l'orario e lo stato di lettura/consegna.
+ * Supporta anche un badge speciale per l'organizzatore.
+ */
+
 const messageColors = {
   sent: 'bg-[#e2fddf] text-[#333]',
   received: 'bg-white text-[#333]',

@@ -6,6 +6,13 @@ import IconButton from "../IconButton/IconButton"
 import type { InputProps, TextAreaInputProps, TrailingIconItemProps } from "./InputType";
 import { usePasswordToggle, validateEmail } from "./useInput"
 
+/**
+ * Componente riutilizzabile per un campo di input.
+ *
+ * Supporta vari tipi (`text`, `password`, `email`, ecc.), la visualizzazione di
+ * icone all'inizio e alla fine, la gestione di errori e la funzionalità
+ * di switch per mostrare/nascondere la password. Può anche renderizzare una `textarea`.
+ */
 function Input({
   label,
   type = 'text',

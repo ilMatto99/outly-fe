@@ -2,6 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { RadioGroup, RadioGroupItem } from "./radio-group"; // Importa i tuoi componenti Shadcn/Radix modificati
 import { useState } from "react"; 
 
+/**
+ * File di storie per i componenti `RadioGroup` e `RadioGroupItem`.
+ *
+ * Contiene storie che mostrano i radio button in diversi stati (singolo, in gruppo,
+ * con opzione predefinita e disabilitata) per testarne l'interazione e lo stile.
+ */
 const meta: Meta<typeof RadioGroup> = { 
   title: 'Components/RadioGroup',
   component: RadioGroup, 

@@ -2,7 +2,13 @@ import IconButton from '../../IconButton/IconButton';
 import { cn } from "@/lib/utils";
 import Avatar from "../../Avatar/avatar";
 
-
+/**
+ * Componente riutilizzabile per l'intestazione di una chat.
+ *
+ * Supporta due tipi di chat: individuale o di gruppo. A seconda del tipo,
+ * mostra le informazioni pertinenti (nome utente, avatar, conteggio partecipanti)
+ * e include pulsanti per tornare indietro e per le opzioni della chat.
+ */
 interface GroupParticipants {
     count: number;
 }

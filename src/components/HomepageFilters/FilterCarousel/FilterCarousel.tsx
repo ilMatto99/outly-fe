@@ -2,6 +2,13 @@ import { cn } from "@/lib/utils";
 import FilterButton from '../FilterButton/FilterButton';
 import "../../../index.css"
 
+/**
+ * Componente riutilizzabile per un carosello di pulsanti di filtro.
+ *
+ * Visualizza una lista di pulsanti di filtro in un'unica riga orizzontale,
+ * che può scorrere se lo spazio non è sufficiente. Gestisce lo stato attivo
+ * dei pulsanti e fornisce un callback per notificare i cambiamenti di selezione.
+ */
 interface FilterCarouselProps {
   filters: {
     id: string;

@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Input from './input'; 
 
+/**
+ * File di storie per il componente `Input`.
+ *
+ * Documenta i vari tipi di input supportati (testo, password, ricerca, textarea)
+ * e i loro stati (disabilitato, solo lettura, con errori), mostrando anche
+ * l'utilizzo di icone iniziali e finali per diversi casi d'uso.
+ */
 const meta: Meta<typeof Input> = {
     title: 'Components/Input',
     component: Input,

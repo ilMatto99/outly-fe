@@ -4,6 +4,13 @@ import ChatHeader from './ChatHeader';
 const USER_AVATAR_URL = 'https://i.pravatar.cc/150?img=12'; 
 const GROUP_AVATAR_URL = 'https://picsum.photos/id/237/150/150';
 
+/**
+ * File di storie per il componente `ChatHeader`.
+ *
+ * Contiene storie che mostrano le due varianti dell'intestazione (chat individuale e di gruppo),
+ * con e senza avatar, per documentare visivamente come si comporta il componente in
+ * diversi scenari di chat.
+ */
 const meta: Meta<typeof ChatHeader> = {
     title: 'Components/Chat/ChatHeader',
     component: ChatHeader,

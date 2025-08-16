@@ -5,6 +5,14 @@ import '../../index.css'
 
 import { cn } from "@/lib/utils"
 
+/**
+ * Componenti riutilizzabili per un gruppo di radio button.
+ *
+ * `RadioGroup` e `RadioGroupItem` sono costruiti su `Radix UI` per garantire
+ * l'accessibilità e il corretto comportamento di navigazione. Permettono
+ * la selezione di un'unica opzione da un set di scelte.
+ * Lo stile è personalizzato tramite classi Tailwind.
+ */
 function RadioGroup({
   className,
   ...props

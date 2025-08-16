@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Avatar from './avatar'; 
 
+/**
+ * File di storie per il componente `Avatar`.
+ *
+ * Definisce e documenta diverse varianti del componente Avatar (immagini, fallback, conteggi)
+ * per visualizzarle e testarle in isolamento con Storybook.
+ */
 const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar/Avatar',
   component: Avatar, 

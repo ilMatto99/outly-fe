@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import FilterButton from './FilterButton';
 
+/**
+ * File di storie per il componente `FilterButton`.
+ *
+ * Mostra diverse varianti del pulsante di filtro, sia nello stato attivo che non attivo,
+ * con varie etichette e icone, per documentare visivamente le opzioni di styling
+ * e l'interazione del componente.
+ */
 const meta: Meta<typeof FilterButton> = {
     title: 'Components/HomepageFilter/FilterButton',
     component: FilterButton,

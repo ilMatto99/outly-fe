@@ -4,6 +4,12 @@ import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
 
+/**
+ * Hook personalizzato per recuperare le attività filtrate.
+ *
+ * @param filters L'oggetto contenente i filtri da applicare alla ricerca delle attività.
+ * @returns Un oggetto contenente l'array di attività, lo stato di caricamento e lo stato di errore.
+ */
 export const useActivities = (filters: FiltroAttivitaDTO) => {
   const [activities, setActivities] = useState<AttivitaDTO[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

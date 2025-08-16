@@ -12,6 +12,14 @@ interface IconButtonProps extends React.ComponentProps<"button"> {
     asChild?: boolean;
 }
 
+/**
+ * Componente riutilizzabile per un pulsante con sola icona.
+ *
+ * Offre diverse varianti di stile (`default`, `outline`) e dimensioni,
+ * con la possibilità di personalizzare l'icona interna. È ottimizzato
+ * per l'accessibilità grazie all'attributo `aria-label`.
+ */
+
 const iconButtonVariants = cva(
     "inline-flex items-center justify-center rounded-full transition-all disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0",
     {

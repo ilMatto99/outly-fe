@@ -3,6 +3,14 @@ import Avatar from "../../Avatar/avatar";
 import Icon from '../../Icon/Icon';
 import { Badge } from "@/components/ui/badge";
 
+/**
+ * Componente riutilizzabile per un singolo elemento di una lista di chat.
+ *
+ * Mostra un'anteprima di una chat (individuale o di gruppo) includendo l'avatar,
+ * il nome, l'ultimo messaggio, l'orario e il conteggio dei messaggi non letti.
+ * Se l'ultimo messaggio è stato inviato dall'utente corrente, mostra anche
+ * lo stato di consegna/lettura.
+ */
 interface MessageListItemProps {
     id: string;
     onClick?: (id: string) => void;

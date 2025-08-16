@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import AvatarList from './AvatarList';
 
+/**
+ * File di storie per il componente `AvatarList`.
+ *
+ * Illustra l'utilizzo del componente `AvatarList` con vari scenari,
+ * come liste con diversi numeri di utenti, dimensioni multiple e
+ * la gestione di utenti senza immagini, per garantire che il componente
+ * funzioni come previsto in tutte le situazioni.
+ */
 const sampleUsers = [
   { id: '1', name: 'Alice', image: 'https://github.com/shadcn.png' },
   { id: '2', name: 'Bob', image: 'https://github.com/shadcn.png?seed=Bob&backgroundColor=ffc107&backgroundType=circle&fontFamily=Arial&fontWeight=600' },

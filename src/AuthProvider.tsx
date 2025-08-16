@@ -7,6 +7,13 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
+/**
+ * Fornitore del contesto di autenticazione.
+ *
+ * Avvolge l'intera applicazione per gestire lo stato di autenticazione dell'utente.
+ * Controlla se l'utente è loggato tramite Google o se un ID utente è già salvato in `localStorage`. 
+ * Fornisce l'ID utente e lo stato di caricamento ai componenti figli.
+ */
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [userId, setUserIdState] = useState<number | null>(() => {
         const storeId = localStorage.getItem("userId");

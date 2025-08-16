@@ -1,6 +1,13 @@
 import { useState, useCallback, useEffect } from "react";
 import type { DateRange } from "react-day-picker";
 
+/**
+ * Hook personalizzato per gestire lo stato di ricerca.
+ *
+ * @param initialTerm Il termine di ricerca iniziale.
+ * @param initialDateRange L'intervallo di date iniziale.
+ * @returns Un oggetto contenente lo stato della ricerca (termine, date, stato del calendario) e le relative funzioni di aggiornamento.
+ */
 export default function useSearchState(
   initialTerm = "",
   initialDateRange?: DateRange

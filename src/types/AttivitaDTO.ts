@@ -1,3 +1,6 @@
+/**
+ * DTO per i dati di un'attività.
+ */
 export type AttivitaDTO = {
     id: number;
     titolo: string;

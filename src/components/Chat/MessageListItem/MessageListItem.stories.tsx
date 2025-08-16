@@ -5,6 +5,14 @@ const USER_AVATAR_URL_1 = 'https://i.pravatar.cc/150?img=3';
 const USER_AVATAR_URL_2 = 'https://i.pravatar.cc/150?img=12'; 
 const GROUP_AVATAR_URL_1 = 'https://picsum.photos/id/237/150/150'; 
 
+/**
+ * File di storie per il componente `MessageListItem`.
+ *
+ * Include storie che mostrano vari stati di un elemento di chat:
+ * messaggi non letti, messaggi letti, messaggi inviati con stato di consegna/lettura,
+ * chat di gruppo e chat individuali, fornendo una visione completa e interattiva
+ * del componente.
+ */
 const meta: Meta<typeof MessageListItem> = {
     title: 'Components/Chat/MessageListItem',
     component: MessageListItem,

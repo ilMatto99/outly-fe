@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Button from "./button";
 
+/**
+ * File di storie per il componente `Button`.
+ *
+ * Contiene diverse storie che mostrano le varie combinazioni di
+ * varianti (`primary`, `secondary`, `outline`, `link`) e dimensioni
+ * (`small`, `medium`, `large`) del componente `Button`, inclusa la
+ * versione disabilitata, per una completa documentazione visiva.
+ */
 const meta: Meta<typeof Button> = {
     title: 'Components/Button',
     component: Button,

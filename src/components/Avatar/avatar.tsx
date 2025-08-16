@@ -1,7 +1,6 @@
 import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
 import '../../index.css'
-
 import { cn } from "@/lib/utils"
 
 interface AvatarProps extends React.ComponentProps<typeof AvatarPrimitive.Root> {
@@ -12,6 +11,15 @@ interface AvatarProps extends React.ComponentProps<typeof AvatarPrimitive.Root> 
   count?: number;
 }
 
+/**
+ * Componente riutilizzabile per un avatar.
+ *
+ * Fornisce due varianti:
+ * 1. Un avatar con un'immagine, che mostra una fallback (testo o iniziali) se l'immagine non è disponibile.
+ * 2. Un avatar testuale, per mostrare un conteggio (ad es. `+3`) o delle iniziali.
+ *
+ * Il componente si basa su `@radix-ui/react-avatar` e accetta classi di stile Tailwind per la personalizzazione.
+ */
 function Avatar({
   className,
   type = 'image',

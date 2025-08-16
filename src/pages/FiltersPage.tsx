@@ -1,11 +1,15 @@
 import Button from "@/components/Button/button";
 import { RadioGroup, RadioGroupItem } from "@/components/RadioGroup/radio-group";
 import { useFiltersData } from "@/hooks/useFiltersData";
-import { useSports } from "@/hooks/useSports";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
+/**
+ * Componente di pagina per la gestione dei filtri di ricerca delle attività.
+ * * Permette agli utenti di selezionare filtri come sport, difficoltà e distanza, e di applicarli per raffinare la ricerca. 
+ * Lo stato dei filtri viene mantenuto e passato tra le pagine tramite la navigazione.
+ */
 export const FiltersPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,9 +20,13 @@ export const FiltersPage = () => {
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | undefined>(initialFilters.difficolta);
   const [distanceKm, setDistanceKm] = useState<number | undefined>(initialFilters.km);
 
-  const { difficulties, loading: FilterLoading, error } = useFiltersData();
-  const { sports, loading: SportsLoading } = useSports();
+  const { difficulties, sports, loading, error } = useFiltersData();
 
+  /**
+     * Gestisce l'applicazione dei filtri e la navigazione alla pagina dei risultati.
+     * - Crea un oggetto `FiltroAttivitaDTO` con i filtri selezionati.
+     * - Naviga alla rotta `/search` passando l'oggetto filtri nello stato della location.
+     */
   const handleApplyFilters = () => {
     const filtersToApply: Partial<FiltroAttivitaDTO> = {
       ...initialFilters,
@@ -33,13 +41,16 @@ export const FiltersPage = () => {
     })
   }
 
+  /**
+     * Resetta tutti i filtri selezionati ai valori predefiniti.
+     */
   const handleClearFilters = () => {
     setSelectedSport(undefined);
     setSelectedDifficulty(undefined);
     setDistanceKm(undefined);
   };
 
-  if (FilterLoading || SportsLoading) return <div>Caricamento filtri...</div>;
+  if (loading) return <div>Caricamento filtri...</div>;
   if (error) return <div>Errore nel caricamento dei filtri: {error}</div>;
 
   return (
@@ -60,10 +71,10 @@ export const FiltersPage = () => {
             onValueChange={(value) => setSelectedSport(Number(value))}
           >
             {/* Mappa i dati e restituisce i RadioGroupItem come figli */}
-            {sports.map((sport) => (
+            {sports.sort((a, b) => a.idSport - b.idSport).map((sport) => (
               <RadioGroupItem
-                key={sport.idSport} 
-                value={sport.idSport.toString()} 
+                key={sport.idSport}
+                value={sport.idSport.toString()}
                 label={sport.nome}
               />
             ))}
@@ -91,7 +102,7 @@ export const FiltersPage = () => {
             value={selectedDifficulty !== undefined ? selectedDifficulty?.toString() : ""}
             onValueChange={(value) => setSelectedDifficulty(Number(value))}
           >
-            {difficulties.map((diff) => (
+            {difficulties.sort((a, b) => a.id - b.id).map((diff) => (
               <RadioGroupItem
                 key={diff.id}
                 value={diff.id.toString()}
@@ -100,13 +111,13 @@ export const FiltersPage = () => {
             ))}
           </RadioGroup>
         </div>
-      </div> 
+      </div>
 
       {/* Footer fisso placeholder */}
-        <div className="fixed bottom-0 p-4 w-full h-[101px] bg-white flex justify-end gap-4 items-center text-sm text-gray-700 shadow-2xl shadow-black">
-          <Button variant="outline" onClick={handleClearFilters} label="Pulisci Filtri" />
-          <Button onClick={handleApplyFilters} label="Applica Filtri" />
-        </div>
+      <div className="fixed bottom-0 p-4 w-full h-[101px] bg-white flex justify-end gap-4 items-center text-sm text-gray-700 shadow-2xl shadow-black">
+        <Button variant="outline" onClick={handleClearFilters} label="Pulisci Filtri" />
+        <Button onClick={handleApplyFilters} label="Applica Filtri" />
+      </div>
     </>
   )
 

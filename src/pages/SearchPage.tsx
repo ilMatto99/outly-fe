@@ -2,11 +2,15 @@ import SearchBar from "@/components/SearchBar/SeachBar"
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { toLocalDateTimeString } from "@/utils/dateUtils";
 import { format } from "date-fns";
-
 import { useState, useEffect } from "react";
 import type { DateRange } from "react-day-picker";
 import { useLocation, useNavigate } from "react-router"
 
+/**
+ * Componente di pagina per la ricerca di attività.
+ * * Permette agli utenti di inserire un termine di ricerca e un intervallo di date.
+ * Recupera i filtri salvati dalla navigazione precedente e gestisce il loro aggiornamento.
+ */
 export const SearchPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -39,11 +43,18 @@ export const SearchPage = () => {
         }
     }, [location.state]);
 
+    /**
+     * Gestisce la ricerca principale.
+     * - Aggiorna lo stato dei filtri con il termine di ricerca e l'intervallo di date.
+     * - Naviga alla pagina dei risultati (`/results`) passando i filtri aggiornati nello stato della location.
+     * @param term Il termine di ricerca inserito dall'utente.
+     * @param dateRange L'intervallo di date selezionato.
+     */
     const handleSearch = (term: string, dateRange?: { from?: Date; to?: Date }) => {
         const newFilters: Partial<FiltroAttivitaDTO> = {
             ...savedFilters,
             luogo: term,
-            // Converte gli oggetti Date in stringhe ISO 8601 per il backend
+            
             dataInizio: dateRange?.from ? toLocalDateTimeString(dateRange.from) : undefined,
             dataFine: dateRange?.to ? toLocalDateTimeString(dateRange.to) : undefined
         };
@@ -52,11 +63,16 @@ export const SearchPage = () => {
         navigate("/results", { state: { filters: newFilters } });
     };
 
+    /**
+     * Gestisce il click sul pulsante dei filtri.
+     * - Aggiorna lo stato dei filtri con il termine di ricerca e l'intervallo di date correnti.
+     * - Naviga alla pagina dei filtri (`/filters`) passando i filtri attuali nello stato della location.
+     */
     const handleFilterClick = () => {
         const updatedFilters = {
             ...savedFilters,
             luogo: currentSearchTerm,
-            // Converte gli oggetti Date in stringhe ISO 8601 per il backend
+            
             dataInizio: currentDateRange.from ? toLocalDateTimeString(currentDateRange.from) : undefined,
             dataFine: currentDateRange.to ? toLocalDateTimeString(currentDateRange.to) : undefined
         };

@@ -9,6 +9,14 @@ import { LuCheck, LuCheckCheck, LuFilter } from 'react-icons/lu';
 import { MdOutlineEuro, MdOutlineNordicWalking } from "react-icons/md";
 import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
 
+/**
+ * Componente riutilizzabile per la gestione delle icone.
+ *
+ * Utilizza una mappa per associare una stringa (`name`) a un componente icona di React.
+ * Se un nome di icona non è presente, viene visualizzata un'icona di fallback
+ * per segnalare un errore. Supporta la personalizzazione di dimensione, colore
+ * e classi CSS.
+ */
 const IconMap: { [key: string]: ElementType } = {
     'bookmark-empty': FaRegBookmark,
     'bookmark-full': FaBookmark,

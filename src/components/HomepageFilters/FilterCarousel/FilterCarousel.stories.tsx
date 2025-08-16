@@ -2,6 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import FilterCarousel from './FilterCarousel';
 import React from 'react';
 
+/**
+ * File di storie per il componente `FilterCarousel`.
+ *
+ * Contiene storie che mostrano il carosello di filtri in vari stati,
+ * inclusa una versione interattiva che permette di cliccare sui pulsanti
+ * per cambiare lo stato attivo, documentando l'intera esperienza utente.
+ */
 const meta: Meta<typeof FilterCarousel> = {
     title: 'Components/HomepageFilter/FilterCarousel',
     component: FilterCarousel,

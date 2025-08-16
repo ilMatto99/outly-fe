@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import IconButton from './IconButton'
 
+/**
+ * File di storie per il componente `IconButton`.
+ *
+ * Mostra le diverse varianti del componente `IconButton` con vari
+ * nomi di icone, dimensioni, colori e stati (abilitato/disabilitato)
+ * per una documentazione visiva completa.
+ */
 const meta: Meta<typeof IconButton> = {
   title: 'Components/IconButton',
   component: IconButton,

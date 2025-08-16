@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import SystemMessage from './SystemMessage';
 
+/**
+ * File di storie per il componente `SystemMessage`.
+ *
+ * Contiene vari esempi di messaggi di sistema per testare la formattazione
+ * e la visualizzazione del componente in diversi scenari, come notifiche
+ * di unione al gruppo o aggiornamenti di attività.
+ */
 const meta: Meta<typeof SystemMessage> = {
     title: 'Components/Chat/SystemMessage',
     component: SystemMessage,
