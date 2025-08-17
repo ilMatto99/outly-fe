@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import Button from "../components/Button/button";
 import Icon from "@/components/Icon/Icon";
+import Footer from "@/components/Footer/Footer";
 
 /**
  * Componente di pagina per l'onboarding degli utenti.
@@ -86,7 +87,6 @@ export default function Onboarding() {
                     </div>
                 </div>
             </section>
-
         </div>
     )
 }

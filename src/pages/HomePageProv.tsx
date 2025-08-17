@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer";
 import SearchBar from "@/components/SearchBar/SeachBar";
 import { useNavigate } from "react-router";
 
@@ -35,9 +36,10 @@ export const HomePageProv = () => {
             </div>
 
             {/* Footer fisso */}
-            <div className="w-full h-[101px] bg-gray-300 text-center fixed bottom-0 left-0 z-50 flex items-center justify-center text-sm text-gray-700">
+            {/* <div className="w-full h-[101px] bg-gray-300 text-center fixed bottom-0 left-0 z-50 flex items-center justify-center text-sm text-gray-700">
                 Footer Placeholder
-            </div>
+            </div> */}
+            <Footer/>
         </div>
     );
 };
