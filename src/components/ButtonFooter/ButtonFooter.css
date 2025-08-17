@@ -1,0 +1,40 @@
+.button-footer-container {
+  /* This helps position the button, adjust as needed */
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom */
+  width: 100%; /* Spans the full width */
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.custom-fab-button {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #212529;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.custom-fab-button:hover {
+  background-color: #343a40; /* Slightly lighter on hover */
+  color: white; /* Ensure text color remains white on hover */
+}
+
+.custom-fab-button:active {
+  background-color: #1a1e21 !important; /* Darker when clicked */
+  color: white; /* Ensure text color remains white when active */
+}
+
+/* To override Bootstrap's default focus styles if they interfere */
+.custom-fab-button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
