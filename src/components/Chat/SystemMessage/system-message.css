@@ -1,0 +1,17 @@
+.system-message {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+}
+
+.system-message span {
+  display: inline-block;
+  background: #e5e5e5;
+  color: #000;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+}

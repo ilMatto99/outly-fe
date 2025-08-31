@@ -1,8 +1,8 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Footer.css'; // We'll create this CSS file for Footer layout
-import ButtonFooter from '../ButtonFooter/ButtonFooter'; // Your existing ButtonFooter component
-import Icon from '../Icon/Icon'; // Your existing Icon component
+import './Footer.css'; 
+import ButtonFooter from '../ButtonFooter/ButtonFooter'; 
+import Icon from '../Icon/Icon';
 
 const Footer = () => {
   return (

@@ -1,7 +1,6 @@
+import Icon from "@/components/Icon/Icon";
 import { Link } from "react-router";
 import Button from "../components/Button/button";
-import Icon from "@/components/Icon/Icon";
-import SingleTab from "@/components/SingleTab/SingleTab";
 
 /**
  * Componente di pagina per l'onboarding degli utenti.
@@ -87,10 +86,10 @@ export default function Onboarding() {
                     </div>
                 </div>
             </section>
-            <SingleTab
+            {/* <SingleTab
                 iconName="map-pin"
                 text="Nelle vicinanze"
-            />
+            /> */}
         </div>
     )
 }

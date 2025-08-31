@@ -1,10 +1,11 @@
-import SearchBar from "@/components/SearchBar/SeachBar"
+import Footer from "@/components/Footer/Footer";
+import SearchBar from "@/components/SearchBar/SeachBar";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { toLocalDateTimeString } from "@/utils/dateUtils";
 import { format } from "date-fns";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { useLocation, useNavigate } from "react-router"
+import { useLocation, useNavigate } from "react-router";
 
 /**
  * Componente di pagina per la ricerca di attività.
@@ -127,10 +128,7 @@ export const SearchPage = () => {
                 </div>
             </div>
 
-            {/* Footer fisso placeholder */}
-            <div className="fixed bottom-0 w-full h-[101px] bg-gray-300 flex items-center justify-center text-sm text-gray-700">
-                Footer Placeholder
-            </div>
+            <Footer />
         </>
     )
 }

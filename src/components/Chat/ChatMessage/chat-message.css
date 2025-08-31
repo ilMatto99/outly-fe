@@ -1,0 +1,87 @@
+.chat-message {
+  max-width: 75%;
+  display: flex;
+  align-items: flex-end;
+  font-family: 'Nunito', sans-serif;
+}
+
+.chat-message.sent {
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.chat-message.received {
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+/* Avatar */
+.chat-avatar {
+  flex-shrink: 0;
+  margin: 0 6px;
+}
+.chat-avatar.left {
+  order: -1; 
+}
+.chat-avatar.right {
+  order: 1;
+}
+
+.chat-bubble-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+}
+
+.chat-bubble-container.align-left {
+  align-items: flex-start;
+}
+.chat-bubble-container.align-right {
+  align-items: flex-end;
+}
+
+/* Stili bolle */
+.chat-bubble {
+  position: relative;
+  border-radius: 16px;
+  padding: 10px 12px 20px 12px;
+  min-width: 40px;
+}
+
+.bubble-received {
+  background: #ffffff;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.bubble-sent {
+  background: #d3f8c6; 
+  border-bottom-right-radius: 4px;
+}
+
+.chat-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  padding-right: 40px; 
+  margin-bottom: 10px;
+}
+
+.chat-time {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: 0.75rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-sender {
+  display: flex;          
+  align-items: center;    
+  gap: 4px;                
+  margin-bottom: 2px;
+  font-weight: 550;
+}

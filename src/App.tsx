@@ -1,15 +1,15 @@
 import { Route, Routes } from 'react-router';
 import './App.css';
 import './index.css';
+import { AuthCallBack } from './pages/AuthCallBack';
+import { CompleteSignup } from './pages/CompleteSignup';
+import { FiltersPage } from './pages/FiltersPage';
+import { HomePageProv } from './pages/HomePageProv';
 import { Login } from './pages/Login';
 import Onboarding from './pages/Onboarding';
-import { Signup } from './pages/Signup';
-import { CompleteSignup } from './pages/CompleteSignup';
-import { AuthCallBack } from './pages/AuthCallBack';
-import { HomePageProv } from './pages/HomePageProv';
 import { SearchPage } from './pages/SearchPage';
-import { FiltersPage } from './pages/FiltersPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
+import { Signup } from './pages/Signup';
 
 /**
  * Componente principale dell'applicazione.

@@ -20,7 +20,7 @@ interface ButtonProps extends React.ComponentProps<"button"> {
  * e utilizza `cva` per gestire le classi di stile in modo dinamico.
  */
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-[20px] text-sm font-bold transition-all disabled:pointer-events-none disabled:opacity-50 line-height-1 cursor-pointer [&_svg]:pointer-events-none",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-pill text-sm font-bold transition-all disabled:pointer-events-none disabled:opacity-50 line-height-1 cursor-pointer [&_svg]:pointer-events-none",
   {
     variants: {
       variant: {

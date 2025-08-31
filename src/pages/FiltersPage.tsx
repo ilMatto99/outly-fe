@@ -113,7 +113,6 @@ export const FiltersPage = () => {
         </div>
       </div>
 
-      {/* Footer fisso placeholder */}
       <div className="fixed bottom-0 p-4 w-full h-[101px] bg-white flex justify-end gap-4 items-center text-sm text-gray-700 shadow-2xl shadow-black">
         <Button variant="outline" onClick={handleClearFilters} label="Pulisci Filtri" />
         <Button onClick={handleApplyFilters} label="Applica Filtri" />
