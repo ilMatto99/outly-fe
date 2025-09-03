@@ -86,7 +86,7 @@ export const CompleteSignup = () => {
 
     return (
         <div className="max-w-md mx-auto p-6 flex flex-col">
-            <div className="text-center mb-3">
+            <div className="text-center mb-3 mt-5">
                 <img
                     src={logo}
                     alt="Logo Outly"

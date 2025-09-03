@@ -1,8 +1,10 @@
+import ActiveFilters from "@/components/ActiveFilters";
 import Footer from "@/components/Footer/Footer";
 import SearchBar from "@/components/SearchBar/SeachBar";
+import { useFiltersData } from "@/hooks/useFiltersData";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { toLocalDateTimeString } from "@/utils/dateUtils";
-import { format } from "date-fns";
+//import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { useLocation, useNavigate } from "react-router";
@@ -15,6 +17,8 @@ import { useLocation, useNavigate } from "react-router";
 export const SearchPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
+
+    const { sports, difficulties, loading: filtersLoading, error: filtersError } = useFiltersData();
 
     // Recupera i filtri passati dalla pagina precedente
     const initialFilters: Partial<FiltroAttivitaDTO> = location.state?.filters || {};
@@ -31,8 +35,8 @@ export const SearchPage = () => {
     });
 
 
+    // Aggiorna savedFilters se la location cambia
     useEffect(() => {
-        // Aggiorna lo stato dei filtri quando la location.state cambia
         if (location.state?.filters) {
             const filtersFromState: Partial<FiltroAttivitaDTO> = location.state.filters;
             setSavedFilters(filtersFromState);
@@ -43,6 +47,28 @@ export const SearchPage = () => {
             });
         }
     }, [location.state]);
+
+    // Aggiorna savedFilters e currentSearchTerm quando l'utente scrive
+    const handleSearchTermChange = (term: string) => {
+        setCurrentSearchTerm(term);
+        setSavedFilters(prev => ({
+            ...prev,
+            luogo: term || undefined
+        }));
+    };
+
+    // Aggiorna savedFilters e currentDateRange quando l'utente seleziona le date
+    const handleDateRangeChange = (range?: DateRange) => {
+        const fromStr = range?.from ? toLocalDateTimeString(range.from) : undefined;
+        const toStr = range?.to ? toLocalDateTimeString(range.to) : undefined;
+
+        setCurrentDateRange({ from: range?.from, to: range?.to });
+        setSavedFilters(prev => ({
+            ...prev,
+            dataInizio: fromStr,
+            dataFine: toStr
+        }));
+    };
 
     /**
      * Gestisce la ricerca principale.
@@ -55,12 +81,10 @@ export const SearchPage = () => {
         const newFilters: Partial<FiltroAttivitaDTO> = {
             ...savedFilters,
             luogo: term,
-            
             dataInizio: dateRange?.from ? toLocalDateTimeString(dateRange.from) : undefined,
             dataFine: dateRange?.to ? toLocalDateTimeString(dateRange.to) : undefined
         };
         setSavedFilters(newFilters);
-        // Naviga alla pagina dei risultati passando i filtri aggiornati
         navigate("/results", { state: { filters: newFilters } });
     };
 
@@ -73,24 +97,17 @@ export const SearchPage = () => {
         const updatedFilters = {
             ...savedFilters,
             luogo: currentSearchTerm,
-            
             dataInizio: currentDateRange.from ? toLocalDateTimeString(currentDateRange.from) : undefined,
             dataFine: currentDateRange.to ? toLocalDateTimeString(currentDateRange.to) : undefined
         };
         setSavedFilters(updatedFilters);
-        // Naviga alla pagina dei filtri passando i filtri aggiornati
         navigate("/filters", { state: { filters: updatedFilters } });
     };
 
-    const handleDateRangeChange = (range?: DateRange) => {
-        setCurrentDateRange({ from: range?.from, to: range?.to });
-    };
-
-    // Funzione per visualizzare la data, accetta Date o stringa ISO
-    const displayDate = (dateInput?: Date | string) => {
-        if (!dateInput) return "Non specificata";
-        const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
-        return format(date, "dd/MM/yyyy");
+    const handleRemoveFilter = (key: keyof FiltroAttivitaDTO) => {
+        const newFilters = { ...savedFilters, [key]: undefined };
+        setSavedFilters(newFilters);
+        navigate("/search", { state: { filters: newFilters } });
     };
 
     return (
@@ -99,8 +116,10 @@ export const SearchPage = () => {
             <div className="w-full h-[74px] fixed top-0 bg-gray-200 flex items-center justify-center text-sm text-gray-600">
                 Navbar Placeholder
             </div>
-            <div className="flex-1 pt-[74px] ">
-                <div className="bg-white px-4 py-6 sticky top-[74px] flex justify-center">
+
+            <div className="flex-1 pt-[74px]">
+                {/* Barra di ricerca */}
+                <div className="bg-white px-2 py-2 mt-4 sticky top-[74px] flex justify-center">
                     <SearchBar
                         initialSearchTerm={savedFilters.luogo || ""}
                         initialDateRange={{
@@ -109,22 +128,25 @@ export const SearchPage = () => {
                         }}
                         onSearch={handleSearch}
                         onFilterClick={handleFilterClick}
-                        onSearchTermChange={setCurrentSearchTerm}
+                        onSearchTermChange={handleSearchTermChange}
                         onDateRangeChange={handleDateRangeChange}
                     />
                 </div>
 
-                <div className="p-4">
-                    <h2 className="text-xl font-bold">Filtri Selezionati</h2>
-                    <ul className="list-disc list-inside p-4 bg-gray-100 rounded-md">
-                        {savedFilters.luogo && <li>Luogo: {savedFilters.luogo}</li>}
-                        {savedFilters.dataInizio && <li>Data Inizio: {displayDate(savedFilters.dataInizio)}</li>}
-                        {savedFilters.dataFine && <li>Data Fine: {displayDate(savedFilters.dataFine)}</li>}
-                        {savedFilters.sport && <li>Sport (ID): {savedFilters.sport}</li>}
-                        {savedFilters.difficolta && <li>Difficoltà (ID): {savedFilters.difficolta}</li>}
-                        {savedFilters.rangeKm && <li>Raggio (Km): {savedFilters.rangeKm}</li>}
-                        {savedFilters.km && <li>Distanza Attività (Km): {savedFilters.km}</li>}
-                    </ul>
+                {/* Filtri attivi */}
+                <div className="flex justify-center mt-0">
+                    {filtersLoading ? (
+                        <div className="text-sm text-gray-500">Caricamento sport...</div>
+                    ) : filtersError ? (
+                        <div className="text-sm text-red-600">Errore nel caricamento degli sport</div>
+                    ) : (
+                        <ActiveFilters
+                            filters={savedFilters}
+                            onRemove={handleRemoveFilter}
+                            sports={sports}
+                            difficulties={difficulties}
+                        />
+                    )}
                 </div>
             </div>
 
