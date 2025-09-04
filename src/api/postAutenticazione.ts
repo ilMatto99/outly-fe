@@ -28,5 +28,7 @@ export const postAutenticazione = async (login: AutenticazioneDTO) => {
 
     const data = response.json();
 
+    console.log(data);
+
     return data;
 }
