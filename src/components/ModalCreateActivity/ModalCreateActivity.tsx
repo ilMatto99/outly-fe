@@ -1,5 +1,6 @@
 import { Modal } from "react-bootstrap";
 import "./ModalCreateActivity.css";
+import { Link } from "react-router";
 
 interface ModalCreateActivityProps {
   show: boolean;
@@ -23,7 +24,9 @@ const ModalCreateActivity = ({ show, handleClose }: ModalCreateActivityProps) =>
       </div>
 
       <div className="bottom-sheet-body">
-        Qui puoi inserire il contenuto della creazione di un’attività.
+        <Link to="/create-activity">
+          <p>Crea Attività</p>
+        </Link>
       </div>
     </Modal>
   );

@@ -1,8 +1,8 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Footer.css'; // We'll create this CSS file for Footer layout
-import ButtonFooter from '../ButtonFooter/ButtonFooter'; // Your existing ButtonFooter component
-import Icon from '../Icon/Icon'; // Your existing Icon component
+import './Footer.css';
+import ButtonFooter from '../ButtonFooter/ButtonFooter';
+import Icon from '../Icon/Icon';
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
       <Row className="h-100 align-items-center">
         {/* Left Icon: Home */}
         <Col className="footer-item text-center">
-          <Icon name="home" size={28} color="#212529" /> 
+          <Icon name="home" size={28} color="#212529" />
           <div className="footer-label">Home</div>
         </Col>
         <Col xs="auto" className="footer-button-container">

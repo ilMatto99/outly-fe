@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             }
         }
         checkInitialAuth();
-    }, [userId]);
+    }, []);
 
     return (
         <AuthContext.Provider value={{ userId, setUserId, loadingAuth }}>

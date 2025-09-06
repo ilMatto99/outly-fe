@@ -10,6 +10,7 @@ import { HomePageProv } from './pages/HomePageProv';
 import { SearchPage } from './pages/SearchPage';
 import { FiltersPage } from './pages/FiltersPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
+import { CreateActivity } from './pages/CreateActivity';
 
 /**
  * Componente principale dell'applicazione.
@@ -31,6 +32,9 @@ function App() {
         {/* Homepage */}
         <Route path="/home" element={<HomePageProv />} />
 
+        {/* Creazione Attività */}
+        <Route path="/create-activity" element={<CreateActivity />} />
+        
         {/* Ricerca */}
         <Route path="/search" element={<SearchPage />} />
         <Route path="/filters" element={<FiltersPage />} />

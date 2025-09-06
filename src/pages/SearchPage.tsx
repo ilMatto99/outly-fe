@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer";
 import SearchBar from "@/components/SearchBar/SeachBar"
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { toLocalDateTimeString } from "@/utils/dateUtils";
@@ -128,9 +129,7 @@ export const SearchPage = () => {
             </div>
 
             {/* Footer fisso placeholder */}
-            <div className="fixed bottom-0 w-full h-[101px] bg-gray-300 flex items-center justify-center text-sm text-gray-700">
-                Footer Placeholder
-            </div>
+            <Footer />
         </>
     )
 }
