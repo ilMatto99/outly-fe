@@ -10,6 +10,7 @@ import Onboarding from './pages/Onboarding';
 import { SearchPage } from './pages/SearchPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
 import { Signup } from './pages/Signup';
+import ChatList from './pages/ChatList';
 
 /**
  * Componente principale dell'applicazione.
@@ -35,6 +36,8 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/filters" element={<FiltersPage />} />
         <Route path="/results" element={<SearchResultsPage />} />
+
+        <Route path="/chat-list" element={<ChatList idUtente={12} />} />
       </Routes>
     </>
   )
