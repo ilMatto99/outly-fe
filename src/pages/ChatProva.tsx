@@ -2,112 +2,99 @@ import React, { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 
-// Tipi per le props del componente
-interface ChatProps {
-  userId: number;
-  idChat: string;
-}
-
-// Tipo del messaggio
-interface MessaggioDTO {
+interface MessaggiDTO {
   idChat: string;
   idMittente: number;
   messaggio: string;
 }
 
-const ChatProva: React.FC<ChatProps> = ({ userId, idChat }) => {
-  const [stompClient, setStompClient] = useState<Client | null>(null);
-  const [messages, setMessages] = useState<MessaggioDTO[]>([]);
-  const [text, setText] = useState("");
+interface MessaggioRicevuto {
+  idChat: string;
+  idMittente: number;
+  messaggio: string;
+}
 
-  // 🔌 Connessione WebSocket
+const Chat: React.FC<{ userId: number; chatId: string }> = ({ userId, chatId }) => {
+  const [stompClient, setStompClient] = useState<Client | null>(null);
+  const [messaggi, setMessaggi] = useState<MessaggioRicevuto[]>([]);
+  const [nuovoMessaggio, setNuovoMessaggio] = useState("");
+
   useEffect(() => {
     const socket = new SockJS("http://localhost:8080/ws");
     const client = new Client({
-      webSocketFactory: () => socket,
-      reconnectDelay: 5000,
+      webSocketFactory: () => socket as any,
       debug: (str) => console.log(str),
+      reconnectDelay: 5000,
     });
 
     client.onConnect = () => {
-      console.log("Connesso!");
-      // Sottoscrizione al topic dell'utente
+      console.log("Connesso al WebSocket");
       client.subscribe(`/topic/utente/${userId}`, (message) => {
-        const msg: MessaggioDTO = JSON.parse(message.body);
-        setMessages((prev) => [...prev, msg]);
+        const body: MessaggioRicevuto = JSON.parse(message.body);
+        setMessaggi((prev) => [...prev, body]);
       });
     };
 
     client.activate();
     setStompClient(client);
 
-    // Cleanup quando il componente si smonta
     return () => {
       client.deactivate();
     };
   }, [userId]);
 
-  // 📥 Carica messaggi iniziali dalla chat via REST
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const res = await fetch(
-          `http://localhost:8080/api/chat/caricaChatSingola?idChat=${idChat}`
-        );
-        const data = await res.json();
-        setMessages(data.messaggi || []);
-      } catch (error) {
-        console.error("Errore nel caricamento messaggi:", error);
-      }
+  const inviaMessaggio = async () => {
+    if (!nuovoMessaggio.trim()) return;
+
+    const messaggiDto: MessaggiDTO = {
+      idChat: chatId,
+      idMittente: userId,
+      messaggio: nuovoMessaggio,
     };
 
-    fetchMessages();
-  }, [idChat]);
-
-  // ✉️ Invia messaggio
-  const sendMessage = () => {
-    if (stompClient && text.trim() !== "") {
-      const messaggio: MessaggioDTO = {
-        idChat: idChat,
-        idMittente: userId,
-        messaggio: text,
-      };
-
-      stompClient.publish({
-        destination: "/app/invia-messaggio",
-        body: JSON.stringify(messaggio),
+    try {
+      const response = await fetch("http://localhost:8080/api/chat/inviaMessaggio", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(messaggiDto),
       });
 
-      setText("");
+      if (!response.ok) {
+        throw new Error("Errore durante l'invio del messaggio");
+      }
+
+      setNuovoMessaggio("");
+    } catch (err) {
+      console.error("Errore invio messaggio", err);
     }
   };
 
   return (
-    <div>
-      <div
-        style={{
-          border: "1px solid #ccc",
-          height: "300px",
-          overflowY: "scroll",
-          padding: "8px",
-        }}
-      >
-        {messages.map((msg, index) => (
-          <div key={index}>
-            <strong>{msg.idMittente}:</strong> {msg.messaggio}
+    <div style={{ padding: 20 }}>
+      <h2>Chat</h2>
+      <div style={{ border: "1px solid gray", padding: 10, height: 200, overflowY: "scroll" }}>
+        {messaggi.map((m, i) => (
+          <div key={i} style={{ marginBottom: 5 }}>
+            <strong>{m.idMittente === userId ? "Tu" : "Utente " + m.idMittente}:</strong> {m.messaggio}
           </div>
         ))}
       </div>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        placeholder="Scrivi un messaggio..."
-      />
-      <button onClick={sendMessage}>Invia</button>
+      <div style={{ marginTop: 10, display: "flex", gap: "8px" }}>
+        <input
+          type="text"
+          style={{ flex: 1, padding: "5px" }}
+          placeholder="Scrivi un messaggio..."
+          value={nuovoMessaggio}
+          onChange={(e) => setNuovoMessaggio(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && inviaMessaggio()}
+        />
+        <button onClick={inviaMessaggio}>Invia</button>
+      </div>
+
     </div>
   );
 };
 
-export default ChatProva;
+export default Chat;

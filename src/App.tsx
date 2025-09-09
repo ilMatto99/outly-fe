@@ -30,7 +30,7 @@ function App() {
         <Route path="/home" element={<HomePageProv />} />
         <Route path="/chat-list" element={<ChatListPage />} />
         <Route path="/chat/:id" element={<ChatPage />} />
-        <Route path="/chatProva" element={<ChatProva userId={12} idChat={'688f8bc4a586f40121837a3a'} />} />
+        <Route path="/chatProva" element={<ChatProva userId={12} chatId={'688f8bc4a586f40121837a3a'} />} />
       </Routes>
     </>
   )
