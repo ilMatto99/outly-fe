@@ -1,6 +1,7 @@
 import MessageListItem from "@/components/Chat/MessageListItem/MessageListItem";
 import { useChatList } from "@/hooks/useChatList";
 import type { Chat } from "@/types/ChatList";
+import { useNavigate } from "react-router";
 
 type ChatListProps = {
     idUtente:number;
@@ -9,6 +10,9 @@ type ChatListProps = {
 const ChatList = ({idUtente}:ChatListProps) => {
 
     const {chats, loading} = useChatList(idUtente);
+
+    const navigate = useNavigate();
+
     if (loading) return <div>Caricamento chat...</div>;
 
     
@@ -17,9 +21,10 @@ const ChatList = ({idUtente}:ChatListProps) => {
           minute: "2-digit",
         });
 
-    const onClick= (id:string) => {
-        return null;
-    }
+         const onClick = (id:string) => {
+          navigate(`/chat/${id}`);
+        };
+    
 
     return(<div>
             {chats.length === 0 ? (
