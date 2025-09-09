@@ -31,7 +31,7 @@ interface MessaggioUniforme {
 }
 
 const ChatPage = () => {
-  const idUtente = 12;
+  const idUtente = 11;
   const { id } = useParams();
 
   if (!id) return <p>ID non valido</p>;
@@ -45,7 +45,8 @@ const ChatPage = () => {
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [messaggiLive, setMessaggiLive] = useState<MessaggioUniforme[]>([]);
 
-  useEffect(() => {
+    useEffect(() => {
+    // Crea socket e client STOMP
     const socket = new SockJS("http://localhost:8080/ws");
     const client = new Client({
         webSocketFactory: () => socket as any,
@@ -55,25 +56,26 @@ const ChatPage = () => {
 
     client.onConnect = () => {
         console.log("Connesso al WebSocket");
+        // Sottoscrizione al topic dell'utente
         client.subscribe(`/topic/utente/${idUtente}`, (message) => {
         const body: MessaggioRicevuto = JSON.parse(message.body);
-
-        // uniformiamo il messaggio
-        const messaggioUniforme: MessaggioUniforme = {
+        // Aggiorna lo stato dei messaggi live
+        setMessaggiLive((prev) => [
+            ...prev,
+            {
             id: body.id,
             idSender: body.idMittente,
             testo: body.messaggio,
             dataInvio: body.dataInvio,
-        };
-
-        setMessaggiLive((prev) => [...prev, messaggioUniforme]);
+            },
+        ]);
         });
     };
 
     client.activate();
     setStompClient(client);
 
-    // Cleanup sincronizzato
+    // Cleanup: disconnetti il client quando il componente viene smontato
     return () => {
         client.deactivate();
     };
