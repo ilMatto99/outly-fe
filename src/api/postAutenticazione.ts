@@ -29,5 +29,7 @@ export const postAutenticazione = async (login: AutenticazioneDTO): Promise<Uten
 
     const data = response.json();
 
+    console.log(data);
+
     return data;
 }

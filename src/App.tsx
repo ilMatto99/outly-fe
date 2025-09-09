@@ -10,6 +10,9 @@ import Onboarding from './pages/Onboarding';
 import { SearchPage } from './pages/SearchPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
 import { Signup } from './pages/Signup';
+import ChatListPage from './pages/ChatListPage';
+import ChatPage from './pages/ChatPage';
+import ChatProva from './pages/ChatProva';
 
 /**
  * Componente principale dell'applicazione.
@@ -17,7 +20,6 @@ import { Signup } from './pages/Signup';
  * collegando i percorsi URL ai rispettivi componenti React.
  */
 function App() {
-
   return (
     <>
       <Routes>
@@ -35,10 +37,17 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/filters" element={<FiltersPage />} />
         <Route path="/results" element={<SearchResultsPage />} />
+
+        {/* Chat */}
+        <Route path="/chat-list" element={<ChatListPage />} />
+        <Route path="/chat/:id" element={<ChatPage />} />
+        <Route
+          path="/chatProva"
+          element={<ChatProva userId={12} chatId={'688f8bc4a586f40121837a3a'} />}
+        />
       </Routes>
     </>
-  )
+  );
 }
 
-export default App
-
+export default App;

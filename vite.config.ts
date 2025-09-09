@@ -10,6 +10,9 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  define: {
+    global: "globalThis", // 👈 fix per sockjs-client
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
