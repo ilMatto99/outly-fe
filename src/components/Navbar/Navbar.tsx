@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import IconButton from "../IconButton/IconButton";
 import './navbar.css'
 import logo from '/images/logo-outly.png'
@@ -44,11 +44,13 @@ function Navbar({ variant = 'default', onBack }: NavbarProps) {
             ) : isPrimaryVariant ? (
                 <div className="navbar-container">
                     <div className="navbar-content">
-                        <div className="navbar-logo">
-                            <img src={logo} alt="Logo Outly" className="navbar-logo-img" />
-                        </div>
+                        <Link to="/home">
+                            <div className="navbar-logo">
+                                <img src={logo} alt="Logo Outly" className="navbar-logo-img" />
+                            </div>
+                        </Link>
                         <div className="navbar-actions">
-                            <IconButton iconName="message" label="Chat" size={"medium"} onClick={handleClick}/>
+                            <IconButton iconName="message" label="Chat" size={"medium"} onClick={handleClick} />
                         </div>
                     </div>
                 </div>
