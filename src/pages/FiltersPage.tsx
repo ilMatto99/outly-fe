@@ -6,7 +6,6 @@ import { useFiltersData } from "@/hooks/useFiltersData";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import './../components/RadioGroup/slider.css'
 
 /**
  * Componente di pagina per la gestione dei filtri di ricerca delle attività.

@@ -20,7 +20,7 @@ export const ActivitiesList: React.FC = () => {
         gap: "1rem",
         alignItems: "center",
         justifyContent: "center",
-        paddingTop: "200px",
+        paddingTop: "30px",
       }}
     >
       {activities.map((att: AttivitaDTO) => (

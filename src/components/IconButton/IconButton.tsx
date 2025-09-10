@@ -58,7 +58,7 @@ function IconButton({
 
     const resolvedIconSize = iconSize || (
                              size === 'small' ? 16 :
-                             size === 'large' ? 28 :
+                             size === 'large' ? 40 :
                              20
     );
 

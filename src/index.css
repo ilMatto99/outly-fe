@@ -136,6 +136,10 @@
     background-color: #fff !important;
   }
 
+  .searchbar {
+    margin-top: 100px !important;
+  }
+
   /* Colore personalizzato */
   .text-custom {
     color: #203d41 !important;

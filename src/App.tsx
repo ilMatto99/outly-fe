@@ -4,7 +4,7 @@ import './index.css';
 import { AuthCallBack } from './pages/AuthCallBack';
 import { CompleteSignup } from './pages/CompleteSignup';
 import { FiltersPage } from './pages/FiltersPage';
-import { HomePageProv } from './pages/HomePageProv';
+import { HomePage } from './pages/HomePage';
 import { Login } from './pages/Login';
 import Onboarding from './pages/Onboarding';
 import { SearchPage } from './pages/SearchPage';
@@ -33,7 +33,7 @@ function App() {
         <Route path="/auth-callback" element={<AuthCallBack />} />
 
         {/* Homepage */}
-        <Route path="/home" element={<HomePageProv />} />
+        <Route path="/home" element={<HomePage />} />
 
         {/* Creazione Attività */}
         <Route path="/create-activity" element={<CreateActivity />} />
