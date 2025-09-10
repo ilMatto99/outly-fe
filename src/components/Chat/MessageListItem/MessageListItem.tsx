@@ -44,7 +44,7 @@ const MessageListItem = ({
     <div
       onClick={handleItemClick}
       className={cn(
-        "flex items-center gap-3 border border-gray-100 p-3 transition-colors rounded-xl",
+        "flex items-center gap-3 p-3 transition-colors ",
         "font-['Nunito_Sans','Helvetica_Neue',Helvetica,Arial,sans-serif]",
         className
       )}

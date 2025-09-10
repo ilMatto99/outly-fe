@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import ChatHeader from "@/components/Chat/ChatHeader/ChatHeader";
-import MessageListItem from "@/components/Chat/MessageListItem/MessageListItem";
+import ChatMessage from "@/components/Chat/ChatMessage/ChatMessage";
+import Input from "@/components/Input/input";
 import { useChat } from "@/hooks/useChat";
 import { timeCalculator } from "@/TimeCalculator/time";
-import { useNavigate, useParams } from "react-router";
-import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import SockJS from "sockjs-client";
+
 
 interface MessaggiDTO {
   idChat: string;
@@ -34,8 +36,10 @@ const ChatPage = () => {
   const idUtente = 11;
   const { id } = useParams();
 
+  // Controllo anticipato per ID non valido
   if (!id) return <p>ID non valido</p>;
 
+  // Chiamata dell'hook all'inizio del componente
   const { chatAndMessagges } = useChat(id);
   const navigate = useNavigate();
 
@@ -44,44 +48,40 @@ const ChatPage = () => {
 
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [messaggiLive, setMessaggiLive] = useState<MessaggioUniforme[]>([]);
+  const [messageText, setMessageText] = useState("");
 
-    useEffect(() => {
-    // Crea socket e client STOMP
+  useEffect(() => {
     const socket = new SockJS("http://localhost:8080/ws");
     const client = new Client({
-        webSocketFactory: () => socket as any,
-        debug: (str) => console.log(str),
-        reconnectDelay: 5000,
+      webSocketFactory: () => socket as any,
+      debug: (str) => console.log(str),
+      reconnectDelay: 5000,
     });
 
     client.onConnect = () => {
-        console.log("Connesso al WebSocket");
-        // Sottoscrizione al topic dell'utente
-        client.subscribe(`/topic/utente/${idUtente}`, (message) => {
+      console.log("Connesso al WebSocket");
+      client.subscribe(`/topic/utente/${idUtente}`, (message) => {
         const body: MessaggioRicevuto = JSON.parse(message.body);
-        // Aggiorna lo stato dei messaggi live
         setMessaggiLive((prev) => [
-            ...prev,
-            {
+          ...prev,
+          {
             id: body.id,
             idSender: body.idMittente,
             testo: body.messaggio,
             dataInvio: body.dataInvio,
-            },
+          },
         ]);
-        });
+      });
     };
 
     client.activate();
     setStompClient(client);
 
-    // Cleanup: disconnetti il client quando il componente viene smontato
     return () => {
-        client.deactivate();
+      client.deactivate();
     };
-    }, [idUtente]);
-
-
+  }, [idUtente]);
+  
   const inviaMessaggio = async (testo: string) => {
     if (!testo.trim()) return;
 
@@ -99,12 +99,12 @@ const ChatPage = () => {
       });
 
       if (!response.ok) throw new Error("Errore durante l'invio del messaggio");
+      setMessageText(""); // Resetta l'input dopo l'invio
     } catch (err) {
       console.error("Errore invio messaggio", err);
     }
   };
 
-  // Combina messaggi storici e live, uniformando i messaggi storici
   const messaggiStorici: MessaggioUniforme[] = chatAndMessagges?.messaggi.map((m) => ({
     id: m.id,
     idSender: m.idSender,
@@ -114,97 +114,94 @@ const ChatPage = () => {
 
   const messaggiTotali = [...messaggiStorici, ...messaggiLive];
 
-  let userName!: string;
-  let userAvatarUrl!: string;
-  let count!: number;
-  let isMessageByMe = false;
-  let className: string | undefined = undefined;
+  let chatName = "";
+  let chatAvatarUrl = "";
+  let participantsCount = 0;
 
   if (!chatAndMessagges?.chat.gruppo) {
-    chatAndMessagges?.chat.partecipanti.forEach((partecipante) => {
-      if (partecipante.idUtente !== idUtente) {
-        userName = partecipante.nome;
-        userAvatarUrl = partecipante.avatarUrl;
-      }
-    });
+    const otherParticipant = chatAndMessagges?.chat.partecipanti.find(
+      (partecipante) => partecipante.idUtente !== idUtente
+    );
+    chatName = otherParticipant?.nome || "";
+    chatAvatarUrl = otherParticipant?.avatarUrl || "";
   } else {
-    count = chatAndMessagges.chat.partecipanti.length;
+    chatName = chatAndMessagges.chat.nome || "Gruppo";
+    chatAvatarUrl = chatAndMessagges.chat.immagine || "";
+    participantsCount = chatAndMessagges.chat.partecipanti.length;
   }
 
   return (
     <>
-      {!chatAndMessagges?.chat.gruppo ? (
-        <ChatHeader
-          onBackClick={onBackClick}
-          onOptionsClick={onOptionsClick}
-          type="individual"
-          userName={userName}
-          userAvatarUrl={userAvatarUrl}
-        />
-      ) : (
-        <ChatHeader
-          onBackClick={onBackClick}
-          onOptionsClick={onOptionsClick}
-          type="group"
-          groupName={chatAndMessagges?.chat.nome}
-          groupParticipants={{ count }}
-          groupAvatarUrl={chatAndMessagges.chat.immagine}
-        />
-      )}
-
-      {messaggiTotali.map((messaggio) => {
-        const sender = chatAndMessagges?.chat.partecipanti.find(
-          (partecipante) => partecipante.idUtente === messaggio.idSender
-        );
-        if (sender?.nome) userName = sender.nome;
-        if (sender?.avatarUrl) userAvatarUrl = sender.avatarUrl;
-
-        isMessageByMe = messaggio.idSender === idUtente;
-        className = cn("max-w-[75%] p-3 rounded-xl mx-4", isMessageByMe ? "bg-[#cfe9ba]" : "bg-white");
-        const orario = timeCalculator(messaggio.dataInvio);
-
-        return (
-          <div
-            key={messaggio.id}
-            className={cn("w-full flex mt-2", messaggio.idSender === idUtente ? "justify-end" : "justify-start")}
-          >
-            <MessageListItem
-              id={chatAndMessagges!.chat.id}
-              chatName={userName}
-              avatarUrl={userAvatarUrl}
-              lastMessage={messaggio.testo}
-              lastMessageTime={orario}
-              isLastMessageSentByMe={isMessageByMe}
-              className={className}
+      <div className="relative min-h-screen flex flex-col">
+        {/* Header fisso in alto */}
+        <div className="fixed top-0 left-0 w-full z-50">
+          {!chatAndMessagges?.chat.gruppo ? (
+            <ChatHeader
+              onBackClick={onBackClick}
+              onOptionsClick={onOptionsClick}
+              type="individual"
+              userName={chatName}
+              userAvatarUrl={chatAvatarUrl}
             />
-          </div>
-        );
-      })}
+          ) : (
+            <ChatHeader
+              onBackClick={onBackClick}
+              onOptionsClick={onOptionsClick}
+              type="group"
+              groupName={chatName}
+              groupParticipants={{ count: participantsCount }}
+              groupAvatarUrl={chatAvatarUrl}
+            />
+          )}
+        </div>
 
-      {/* Input per invio messaggi */}
-      <div style={{ marginTop: 10, display: "flex", gap: "8px", padding: "0 16px" }}>
-        <input
-          type="text"
-          style={{ flex: 1, padding: "5px" }}
-          placeholder="Scrivi un messaggio..."
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.currentTarget.value.trim()) {
-              inviaMessaggio(e.currentTarget.value);
-              e.currentTarget.value = "";
-            }
-          }}
-        />
-        <button
-          onClick={() => {
-            const input = document.querySelector<HTMLInputElement>('input[placeholder="Scrivi un messaggio..."]');
-            if (input && input.value.trim()) {
-              inviaMessaggio(input.value);
-              input.value = "";
-            }
-          }}
-        >
-          Invia
-        </button>
+        {/* Contenitore dei messaggi con margine superiore */}
+        <div className="flex-1 overflow-y-auto mt-[100px] mb-[80px] items-center justify-center" style={{marginBottom: "100px"}}>
+          {messaggiTotali.map((messaggio) => {
+            const isMessageByMe = messaggio.idSender === idUtente;
+            const sender = chatAndMessagges?.chat.partecipanti.find(
+              (partecipante) => partecipante.idUtente === messaggio.idSender
+            );
+            const orario = timeCalculator(messaggio.dataInvio);
+
+            return (
+              <ChatMessage
+                key={messaggio.id}
+                message={messaggio.testo}
+                time={orario}
+                type={isMessageByMe ? "sent" : "received"}
+                sender={sender?.nome}
+                avatarUrl={sender?.avatarUrl}
+              />
+            );
+          })}
+        </div>
+
+        {/* Input fisso in basso */}
+        <div className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-white p-4">
+          <Input
+            type="text"
+            label=""
+            placeholder="Scrivi un messaggio..."
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                inviaMessaggio(messageText);
+              }
+            }}
+            leadingIcon="paperclip"
+            trailingIcons={[
+              { iconName: "camera", label: "Allega foto" },
+              {
+                iconName: "send",
+                label: "Invia messaggio",
+                onClick: () => inviaMessaggio(messageText),
+                disabled: !messageText.trim(),
+              },
+            ]}
+          />
+        </div>
       </div>
     </>
   );

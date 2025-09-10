@@ -28,7 +28,7 @@ const meta: Meta<typeof MessageListItem> = {
         lastMessage: { control: 'text', description: 'Content of the last message.' },
         lastMessageTime: { control: 'text', description: 'Time of the last message (e.g., "14:10").' },
         unreadCount: { control: 'number', description: 'Number of unread messages.' },
-        isGroupChat: { control: 'boolean', description: 'True if it is a group chat.' },
+        /* isGroupChat: { control: 'boolean', description: 'True if it is a group chat.' }, */
         isLastMessageSentByMe: { control: 'boolean', description: 'True if the last message was sent by the current user.' },
         lastMessageStatus: { 
             control: 'select', 
@@ -58,7 +58,7 @@ export const IndividualChatUnread: Story = {
         lastMessage: 'Benvenuti a tutti! Sono Giuseppe, l\'organizzatore di questa attività.',
         lastMessageTime: '14:00',
         unreadCount: 2,
-        isGroupChat: false,
+        /* isGroupChat: false, */
         isLastMessageSentByMe: false,
     },
 };
@@ -71,7 +71,7 @@ export const IndividualChatRead: Story = {
         lastMessage: 'Possiamo incontrarci alle 9 nel parcheggio del...',
         lastMessageTime: '15:00',
         unreadCount: 0, 
-        isGroupChat: false,
+        /* isGroupChat: false, */
         isLastMessageSentByMe: false,
     },
 };
@@ -84,7 +84,7 @@ export const IndividualChatSentByMeDelivered: Story = {
         lastMessage: 'Ho inviato l\'ultimo messaggio, è stato consegnato.',
         lastMessageTime: '16:05',
         unreadCount: 0,
-        isGroupChat: false,
+        /* isGroupChat: false, */
         isLastMessageSentByMe: true,
         lastMessageStatus: 'delivered',
     },
@@ -98,7 +98,7 @@ export const IndividualChatSentByMeRead: Story = {
         lastMessage: 'Il mio ultimo messaggio è stato letto.',
         lastMessageTime: '16:10',
         unreadCount: 0,
-        isGroupChat: false,
+        /* isGroupChat: false, */
         isLastMessageSentByMe: true,
         lastMessageStatus: 'checked',
     },
@@ -113,7 +113,7 @@ export const GroupChatUnread: Story = {
         lastMessage: 'Giuseppe: L\'incontro è previsto per le ore 10 a M...',
         lastMessageTime: '14:10',
         unreadCount: 5, 
-        isGroupChat: true,
+        /* isGroupChat: true, */
         isLastMessageSentByMe: false,
     },
 };
@@ -126,7 +126,7 @@ export const GroupChatRead: Story = {
         lastMessage: 'Anna: Ci aggiorniamo per i dettagli.',
         lastMessageTime: 'Ieri',
         unreadCount: 0,
-        isGroupChat: true,
+        /* isGroupChat: true, */
         isLastMessageSentByMe: false,
     },
 };
@@ -144,7 +144,7 @@ export const ListOfChats: StoryFn<typeof MessageListItem> = () => (
       lastMessage="Benvenuti a tutti! Sono Giuseppe, l'organizzatore di questa attività."
       lastMessageTime="14:00"
       unreadCount={2}
-      isGroupChat={false}
+      /* isGroupChat={false} */
       isLastMessageSentByMe={false}
     />
     <MessageListItem
@@ -154,7 +154,7 @@ export const ListOfChats: StoryFn<typeof MessageListItem> = () => (
       lastMessage="Possiamo incontrarci alle 9 nel parcheggio del..."
       lastMessageTime="15:00"
       unreadCount={0}
-      isGroupChat={false}
+      /* isGroupChat={false} */
       isLastMessageSentByMe={false}
     />
     <MessageListItem
@@ -164,7 +164,7 @@ export const ListOfChats: StoryFn<typeof MessageListItem> = () => (
       lastMessage="Giuseppe: L'incontro è previsto per le ore 10 a M..."
       lastMessageTime="14:10"
       unreadCount={5}
-      isGroupChat={true}
+      /* isGroupChat={true} */
       isLastMessageSentByMe={false}
     />
     <MessageListItem
@@ -174,7 +174,7 @@ export const ListOfChats: StoryFn<typeof MessageListItem> = () => (
       lastMessage="Ho inviato l'ultimo messaggio, è stato consegnato."
       lastMessageTime="16:05"
       unreadCount={0}
-      isGroupChat={false}
+      /* isGroupChat={false} */
       isLastMessageSentByMe={true}
       lastMessageStatus="delivered"
     />
@@ -185,7 +185,7 @@ export const ListOfChats: StoryFn<typeof MessageListItem> = () => (
       lastMessage="Il mio ultimo messaggio è stato letto."
       lastMessageTime="16:10"
       unreadCount={0}
-      isGroupChat={false}
+      /* isGroupChat={false} */
       isLastMessageSentByMe={true}
       lastMessageStatus="checked"
     />
