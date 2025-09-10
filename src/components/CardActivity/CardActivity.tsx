@@ -19,7 +19,7 @@ const CardActivity: React.FC<CardActivityProps> = ({
   distance,
   duration,
   difficulty,
-  mapImage="",
+  mapImage = ""
 }) => {
   return (
     <Card className="card-activity">
@@ -46,5 +46,3 @@ const CardActivity: React.FC<CardActivityProps> = ({
 };
 
 export default CardActivity;
-
-

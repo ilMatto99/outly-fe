@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import CardActivity from "../CardActivity/CardActivity";
 import { useAllActivities } from "@/hooks/useAllActivities";
 import type { AttivitaDTO } from "@/types/AttivitaDTO";
@@ -13,19 +14,32 @@ export const ActivitiesList: React.FC = () => {
   return (
     <div
       className="activities-list"
-      style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center", justifyContent: "center", paddingTop: "200px" }}
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1rem",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingTop: "200px",
+      }}
     >
       {activities.map((att: AttivitaDTO) => (
-        <CardActivity
+        <Link
           key={att.id}
-          title={att.titolo}
-          location={att.luogo}
-          date={new Date(att.dataAttivita).toLocaleDateString()}
-          distance={`${att.km} km`}
-          duration={`${att.durata} min`}
-          difficulty={String(att.difficolta)}
-          mapImage={att.mappaUrl}
-        />
+          to={`/attivita/${att.id}`}
+          state={{ activity: att }}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <CardActivity
+            title={att.titolo}
+            location={att.luogo}
+            date={new Date(att.dataAttivita).toLocaleDateString()}
+            distance={`${att.km} km`}
+            duration={`${att.durata} min`}
+            difficulty={String(att.difficolta)}
+            mapImage={att.mappaUrl}
+          />
+        </Link>
       ))}
     </div>
   );

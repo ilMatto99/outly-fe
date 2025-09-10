@@ -11,6 +11,7 @@ import { SearchPage } from './pages/SearchPage';
 import { FiltersPage } from './pages/FiltersPage';
 import { SearchResultsPage } from './pages/SearchResultsPage';
 import { CreateActivity } from './pages/CreateActivity';
+import { DetailActivities } from './pages/DetailActivities';
 
 /**
  * Componente principale dell'applicazione.
@@ -34,6 +35,9 @@ function App() {
 
         {/* Creazione Attività */}
         <Route path="/create-activity" element={<CreateActivity />} />
+
+        {/* Dettaglio Attività */}
+        <Route path="/attivita/:id" element={<DetailActivities />} />
         
         {/* Ricerca */}
         <Route path="/search" element={<SearchPage />} />
