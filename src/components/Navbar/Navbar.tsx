@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import IconButton from "../IconButton/IconButton";
 import './navbar.css'
 import logo from '/images/logo-outly.png'
@@ -19,8 +20,13 @@ interface NavbarProps {
  * delle impostazioni (con solo il pulsante 'indietro').
  */
 function Navbar({ variant = 'default', onBack }: NavbarProps) {
+    const navigate = useNavigate();
     const isDefaultVariant = variant === 'default';
     const isPrimaryVariant = variant === 'primary';
+
+    const handleClick = () => {
+        navigate("/chat-list")
+    }
 
     return (
         <>
@@ -42,7 +48,7 @@ function Navbar({ variant = 'default', onBack }: NavbarProps) {
                             <img src={logo} alt="Logo Outly" className="navbar-logo-img" />
                         </div>
                         <div className="navbar-actions">
-                            <IconButton iconName="message" label="Chat" size={"medium"} />
+                            <IconButton iconName="message" label="Chat" size={"medium"} onClick={handleClick}/>
                         </div>
                     </div>
                 </div>
