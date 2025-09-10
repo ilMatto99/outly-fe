@@ -1,4 +1,5 @@
 import CardActivity from "@/components/CardActivity/CardActivity";
+import Footer from "@/components/Footer/Footer";
 import SearchBar from "@/components/SearchBar/SeachBar";
 import { useActivities } from "@/hooks/useActivities";
 import type { AttivitaDTO } from "@/types/AttivitaDTO";
@@ -73,11 +74,8 @@ export const SearchResultsPage = () => {
 
 
             </div>
-
-            {/* Footer fisso placeholder */}
-            <div className="fixed bottom-0 w-full h-[101px] bg-gray-300 flex items-center justify-center text-sm text-gray-700">
-                Footer Placeholder
-            </div>
+            
+            <Footer /> 
         </>
 
     )

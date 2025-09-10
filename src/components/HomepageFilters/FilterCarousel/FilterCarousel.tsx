@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils";
 import FilterButton from '../FilterButton/FilterButton';
-import "../../../index.css"
+import './../../../index.css'
 
 /**
  * Componente riutilizzabile per un carosello di pulsanti di filtro.
@@ -9,6 +8,7 @@ import "../../../index.css"
  * che può scorrere se lo spazio non è sufficiente. Gestisce lo stato attivo
  * dei pulsanti e fornisce un callback per notificare i cambiamenti di selezione.
  */
+
 interface FilterCarouselProps {
   filters: {
     id: string;
@@ -27,13 +27,8 @@ const FilterCarousel = ({
   className
 }: FilterCarouselProps) => {
   return (
-    <div
-      className={cn(
-        "w-full overflow-x-auto py-2 px-4 no-scrollbar", 
-        className
-      )}
-    >
-      <div className="flex gap-3"> 
+    <div className={`w-100 overflow-auto py-2 px-4 no-scrollbar ${className || ""}`}>
+      <div className="d-flex gap-3">
         {filters.map((filter) => (
           <FilterButton
             key={filter.id}

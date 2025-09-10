@@ -1,3 +1,4 @@
+import Icon from "@/components/Icon/Icon";
 import { Link } from "react-router";
 import Button from "../components/Button/button";
 import Icon from "@/components/Icon/Icon";

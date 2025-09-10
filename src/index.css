@@ -115,7 +115,50 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Font */
+  .font-nunito {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  /* Colore personalizzato */
+  .text-custom {
+    color: #203d41 !important;
+  }
+
+  .border-custom {
+    border-color: #203d41 !important;
+  }
+
+  .hover-border-custom:hover {
+    border-color: #203d41 !important;
+  }
+
+  .bg-lightgreen {
+    background-color: #e2fddf !important;
+  }
+
+  /* Hover bg */
+  .hover-bg-light:hover {
+    background-color: #f8f9fa !important;
+  }
+
+  .hover-bg-white:hover {
+    background-color: #ffffff !important;
+  }
+
+  /* Scrollbar nascosta */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
 }

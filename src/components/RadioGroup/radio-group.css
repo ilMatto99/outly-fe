@@ -1,0 +1,65 @@
+/* Dimensioni personalizzate */
+.radio-size {
+  width: 20px;
+  height: 20px;
+}
+
+.radio-dot-size {
+  width: 10px;
+  height: 10px;
+}
+
+/* Colori custom */
+.border-custom {
+  border-color: #203d41 !important;
+}
+
+.bg-custom {
+  background-color: #203d41 !important;
+}
+
+.text-custom {
+  color: #203d41 !important;
+}
+
+/* Font */
+.font-nunito {
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Margine 10px (equiv. Tailwind mr-2.5) */
+.me-2-5 {
+  margin-right: 10px;
+}
+
+/* Focus ring personalizzato */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(32, 61, 65, 0.5);
+}
+
+/* Stato disabilitato */
+[data-disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+[data-disabled] .text-custom {
+  color: #a0a0a0 !important;
+}
+
+[data-disabled] .border-custom {
+  border-color: #e0e0e0 !important;
+}
+
+[data-disabled][data-state="checked"] .border-custom {
+  border-color: #c0c0c0 !important;
+}
+
+[data-disabled] .bg-custom {
+  background-color: #203d41 !important;
+}
+
+[data-disabled][data-state="checked"] .bg-custom {
+  background-color: #c0c0c0 !important;
+}

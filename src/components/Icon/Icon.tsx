@@ -8,6 +8,7 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { LuCheck, LuCheckCheck, LuFilter } from 'react-icons/lu';
 import { MdOutlineEuro, MdOutlineNordicWalking } from "react-icons/md";
 import { RiPinDistanceLine, RiVerifiedBadgeLine } from "react-icons/ri";
+import { IoIosClose } from "react-icons/io";
 
 /**
  * Componente riutilizzabile per la gestione delle icone.
@@ -59,7 +60,8 @@ const IconMap: { [key: string]: ElementType } = {
     "smartphone": FiSmartphone,
     "google": FcGoogle,
     "apple": FaApple,
-    "facebook": FaFacebook
+    "facebook": FaFacebook,
+    "x": IoIosClose
 };
 
 interface IconProps extends SVGProps<SVGSVGElement> {

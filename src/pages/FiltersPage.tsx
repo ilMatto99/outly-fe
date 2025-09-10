@@ -1,5 +1,6 @@
 import Button from "@/components/Button/button";
 import { RadioGroup, RadioGroupItem } from "@/components/RadioGroup/radio-group";
+import { Slider } from "@/components/ui/slider";
 import { useFiltersData } from "@/hooks/useFiltersData";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { useState } from "react";
@@ -18,7 +19,9 @@ export const FiltersPage = () => {
 
   const [selectedSport, setSelectedSport] = useState<number | undefined>(initialFilters.sport);
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | undefined>(initialFilters.difficolta);
-  const [distanceKm, setDistanceKm] = useState<number | undefined>(initialFilters.km);
+  const [distanceKm, setDistanceKm] = useState<number[]>(
+    initialFilters.km ? [initialFilters.km] : [0]
+  );
 
   const { difficulties, sports, loading, error } = useFiltersData();
 
@@ -32,7 +35,7 @@ export const FiltersPage = () => {
       ...initialFilters,
       sport: selectedSport,
       difficolta: selectedDifficulty,
-      km: distanceKm,
+      km: distanceKm[0],
     }
     navigate("/search", {
       state: {
@@ -47,7 +50,7 @@ export const FiltersPage = () => {
   const handleClearFilters = () => {
     setSelectedSport(undefined);
     setSelectedDifficulty(undefined);
-    setDistanceKm(undefined);
+    setDistanceKm([0]);
   };
 
   if (loading) return <div>Caricamento filtri...</div>;
@@ -84,15 +87,19 @@ export const FiltersPage = () => {
         {/* Filtro per Distanza */}
         <div className="mb-4">
           <h2 className="text-lg font-semibold mb-2">Distanza in km</h2>
-          {/* Placeholder per lo Slider */}
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={distanceKm || 0}
-            onChange={(e) => setDistanceKm(Number(e.target.value))}
+          <div className="flex items-center gap-3">
+          <Slider
+            className="w-40"
+            min={0}
+            max={100}
+            step={1}
+            value={distanceKm}
+            onValueChange={(val: number[]) => setDistanceKm(val)}
           />
-          <span>{distanceKm || 0} km</span>
+          
+
+          <span>{distanceKm[0]} km</span>
+          </div>
         </div>
 
         {/* Filtro per Difficoltà */}
@@ -113,7 +120,6 @@ export const FiltersPage = () => {
         </div>
       </div>
 
-      {/* Footer fisso placeholder */}
       <div className="fixed bottom-0 p-4 w-full h-[101px] bg-white flex justify-end gap-4 items-center text-sm text-gray-700 shadow-2xl shadow-black">
         <Button variant="outline" onClick={handleClearFilters} label="Pulisci Filtri" />
         <Button onClick={handleApplyFilters} label="Applica Filtri" />
