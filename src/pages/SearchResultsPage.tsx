@@ -1,5 +1,6 @@
 import CardActivity from "@/components/CardActivity/CardActivity";
 import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
 import SearchBar from "@/components/SearchBar/SeachBar";
 import { useActivities } from "@/hooks/useActivities";
 import type { AttivitaDTO } from "@/types/AttivitaDTO";
@@ -38,16 +39,13 @@ export const SearchResultsPage = () => {
 
     return (
         <>
-            {/* Navbar fissa placeholder */}
-            <div className="w-full h-[74px] fixed top-0 bg-gray-200 flex items-center justify-center text-sm text-gray-600">
-                Navbar Placeholder
-            </div>
+            <Navbar variant="primary" />
             <div className="flex-1 pt-[74px] ">
                 <div className="bg-white px-4 py-6 sticky top-[74px] flex justify-center" onClick={handleClick}>
                     <SearchBar />
                 </div>
 
-                <div className="container mx-auto p-4">
+                <div className="container mx-auto">
                     {loading && <p className="text-center text-lg text-gray-600">Caricamento attività...</p>}
                     {error && <p className="text-center text-lg text-red-500">Errore: {error}</p>}
                     {!loading && !error && activities.length === 0 && (
@@ -56,7 +54,7 @@ export const SearchResultsPage = () => {
                 </div>
 
                 {!loading && activities.length > 0 && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
                         {activities.map((activity: AttivitaDTO, index: number) => (
                             <CardActivity
                                 key={index}
@@ -77,6 +75,5 @@ export const SearchResultsPage = () => {
             
             <Footer /> 
         </>
-
     )
 }

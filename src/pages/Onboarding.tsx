@@ -1,6 +1,7 @@
 import Icon from "@/components/Icon/Icon";
 import { Link } from "react-router";
 import Button from "../components/Button/button";
+import Navbar from "@/components/Navbar/Navbar";
 
 /**
  * Componente di pagina per l'onboarding degli utenti.
@@ -15,17 +16,14 @@ export default function Onboarding() {
 
     return (
         <div className="flex flex-col w-full min-h-screen bg-white text-gray-800">
-            {/* Navbar fissa placeholder */}
-            <div className="w-full h-[74px] bg-gray-200 text-center flex items-center justify-center text-sm text-gray-600 fixed top-0 left-0 z-50">
-                Navbar Placeholder
-            </div>
+            <Navbar />
 
             {/* Hero */}
             <section className="relative h-[60vh] w-full bg-cover bg-center" style={{ backgroundImage: "url('/images/hero-outly.jpg')" }}>
                 <div className="absolute inset-0 bg-black opacity-30"></div>
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4 text-center">
-                    <h1 className="text-4xl font-semibold leading-tight mb-6 ">Trova compagni per<br />la tua prossima avventura.</h1>
-                    <div className="flex flex-col gap-4 w-full max-w-sm">
+                    <h1 className="text-4xl text-h1 font-bold leading-tight mb-6 ">Trova compagni per<br />la tua prossima avventura.</h1>
+                    <div className="flex flex-col gap-4 w-full  mt-4 max-w-sm">
                         <Link to={"/login"}>
                             <Button label="Accedi" variant={"primary"} onClick={handleClick} className="w-80"/>
                         </Link>

@@ -8,14 +8,18 @@ const Footer = () => {
   return (
     <Container fluid className="app-footer">
       <Row className="h-100 align-items-center">
-        {/* Left Icon: Home */}
+        {/* Colonna 1: Home */}
         <Col className="footer-item text-center">
-          <Icon name="home" size={28} color="#212529" /> 
+          <Icon name="home" size={28} color="#212529" />
           <div className="footer-label">Home</div>
         </Col>
-        <Col xs="auto" className="footer-button-container">
+
+        {/* Colonna 2: Pulsante Centrale */}
+        <Col className="footer-item text-center">
           <ButtonFooter />
         </Col>
+
+        {/* Colonna 3: Profilo */}
         <Col className="footer-item text-center">
           <Icon name="user" size={28} color="#212529" />
           <div className="footer-label">Profilo</div>
