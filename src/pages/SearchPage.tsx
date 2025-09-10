@@ -1,5 +1,6 @@
 import ActiveFilters from "@/components/ActiveFilters";
 import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
 import SearchBar from "@/components/SearchBar/SeachBar";
 import { useFiltersData } from "@/hooks/useFiltersData";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
@@ -112,10 +113,7 @@ export const SearchPage = () => {
 
     return (
         <>
-            {/* Navbar fissa placeholder */}
-            <div className="w-full h-[74px] fixed top-0 bg-gray-200 flex items-center justify-center text-sm text-gray-600">
-                Navbar Placeholder
-            </div>
+            <Navbar variant="primary" />
 
             <div className="flex-1 pt-[74px]">
                 {/* Barra di ricerca */}

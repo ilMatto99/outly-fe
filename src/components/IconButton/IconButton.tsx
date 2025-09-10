@@ -21,7 +21,7 @@ interface IconButtonProps extends React.ComponentProps<"button"> {
  */
 
 const iconButtonVariants = cva(
-    "inline-flex items-center justify-center rounded-full transition-all disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0",
+    "inline-flex items-center justify-center rounded-circle transition-all disabled:opacity-60 disabled:cursor-not-allowed flex-shrink-0",
     {
         variants: {
             variant: {

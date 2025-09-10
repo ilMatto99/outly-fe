@@ -1,10 +1,12 @@
 import Button from "@/components/Button/button";
+import Navbar from "@/components/Navbar/Navbar";
 import { RadioGroup, RadioGroupItem } from "@/components/RadioGroup/radio-group";
 import { Slider } from "@/components/ui/slider";
 import { useFiltersData } from "@/hooks/useFiltersData";
 import type { FiltroAttivitaDTO } from "@/types/FiltroAttivitaDTO";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import './../components/RadioGroup/slider.css'
 
 /**
  * Componente di pagina per la gestione dei filtri di ricerca delle attività.
@@ -58,16 +60,13 @@ export const FiltersPage = () => {
 
   return (
     <>
-      {/* Navbar fissa placeholder */}
-      <div className="w-full h-[74px] bg-gray-200 text-center flex items-center justify-center text-sm text-gray-600 fixed top-0 left-0 z-50">
-        Navbar Placeholder
-      </div>
+      <Navbar variant="secondary" />
 
-      {/* <div className="p-4"> */} <div className="flex-1 pt-[74px] pb-[101px] overflow-y-auto p-4 mt-5">
+      <div className="flex-1 pt-[74px] pb-[101px] overflow-y-auto p-4 mt-20">
         <h1 className="text-2xl font-bold mb-4">Filtra Attività</h1>
 
         {/* Filtro per Sport */}
-        <div className="mb-4">
+        <div className="mb-4 ">
           <h2 className="text-lg font-semibold mb-2">Tipo di Attività (Sport)</h2>
           <RadioGroup
             value={selectedSport !== undefined ? selectedSport.toString() : ""}
@@ -89,7 +88,7 @@ export const FiltersPage = () => {
           <h2 className="text-lg font-semibold mb-2">Distanza in km</h2>
           <div className="flex items-center gap-3">
           <Slider
-            className="w-40"
+            className="w-40 custom-slider"
             min={0}
             max={100}
             step={1}

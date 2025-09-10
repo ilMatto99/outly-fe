@@ -125,9 +125,29 @@
     font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
+  /* Stile per la traccia dello slider */
+  .custom-slider .bg-primary {
+    background-color: #203d41 !important;
+  }
+
+  /* Stile per il pallino dello slider */
+  .custom-slider .group .w-5.h-5 {
+    border: 2px solid #203d41 !important;
+    background-color: #fff !important;
+  }
+
   /* Colore personalizzato */
   .text-custom {
     color: #203d41 !important;
+  }
+
+  .text-h1 {
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: bolder !important;
+    color: white;
+    text-align: center;
+    max-width: 90% !important;
+    font-size: xx-large !important;
   }
 
   .border-custom {

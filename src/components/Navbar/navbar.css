@@ -1,0 +1,40 @@
+.navbar-container-default {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 10;
+
+background-color: transparent;
+
+padding: 1rem 1.5rem;
+}
+
+.navbar-container {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 10;
+
+background-color: #fff;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+padding: 1rem 1.5rem;
+}
+
+.navbar-content {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.navbar-logo-img {
+height: 40px; 
+width: auto;
+}
+
+.navbar-actions {
+display: flex;
+gap: 1rem;
+}
