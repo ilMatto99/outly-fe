@@ -2,6 +2,7 @@
 import ChatHeader from "@/components/Chat/ChatHeader/ChatHeader";
 import ChatMessage from "@/components/Chat/ChatMessage/ChatMessage";
 import Input from "@/components/Input/input";
+import { useAuth } from "@/hooks/useAuth";
 import { useChat } from "@/hooks/useChat";
 import { timeCalculator } from "@/TimeCalculator/time";
 import { Client } from "@stomp/stompjs";
@@ -33,7 +34,14 @@ interface MessaggioUniforme {
 }
 
 const ChatPage = () => {
-  const idUtente = 11;
+  const {userId} = useAuth() ;
+  
+    const idUtente = userId; 
+  
+    if (idUtente === null) {
+      return <p>Utente non loggato</p>;
+    }
+    
   const { id } = useParams();
 
   // Controllo anticipato per ID non valido

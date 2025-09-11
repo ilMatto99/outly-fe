@@ -1,6 +1,7 @@
 import MessageListItem from "@/components/Chat/MessageListItem/MessageListItem";
 import Footer from "@/components/Footer/Footer";
 import Navbar from "@/components/Navbar/Navbar";
+import { useAuth } from "@/hooks/useAuth";
 import { useChats } from "@/hooks/useChats";
 import { timeCalculator } from "@/TimeCalculator/time";
 import { useNavigate } from "react-router";
@@ -9,7 +10,13 @@ const ChatListPage = () => {
 
   const navigate = useNavigate();
 
-  const idUtente = 12;
+  const {userId} = useAuth() ;
+
+  const idUtente = userId; 
+
+  if (idUtente === null) {
+    return <p>Utente non loggato</p>;
+  }
 
   const { chats, loading } = useChats(idUtente);
 

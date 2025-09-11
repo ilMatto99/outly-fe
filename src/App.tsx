@@ -14,7 +14,6 @@ import { DetailActivities } from './pages/DetailActivities';
 import { Signup } from './pages/Signup';
 import ChatListPage from './pages/ChatListPage';
 import ChatPage from './pages/ChatPage';
-import ChatProva from './pages/ChatProva';
 
 /**
  * Componente principale dell'applicazione.
@@ -49,10 +48,6 @@ function App() {
         {/* Chat */}
         <Route path="/chat-list" element={<ChatListPage />} />
         <Route path="/chat/:id" element={<ChatPage />} />
-        <Route
-          path="/chatProva"
-          element={<ChatProva userId={12} chatId={'688f8bc4a586f40121837a3a'} />}
-        />
       </Routes>
     </>
   );
